@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>profile (Haml::AbstractProfiler)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/gems/haml-1.7.1/test/profile.rb, line 13</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">profile</span>(<span class="ruby-identifier">times</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+      <span class="ruby-comment cmt"># Runs the profiler, collects information</span>
+      <span class="ruby-constant">Profiler__</span><span class="ruby-operator">::</span><span class="ruby-identifier">start_profile</span>
+      <span class="ruby-identifier">times</span>.<span class="ruby-identifier">times</span> <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>
+      <span class="ruby-constant">Profiler__</span><span class="ruby-operator">::</span><span class="ruby-identifier">stop_profile</span>
+      
+      <span class="ruby-comment cmt"># Outputs information to a StringIO, returns result</span>
+      <span class="ruby-identifier">io</span> = <span class="ruby-constant">StringIO</span>.<span class="ruby-identifier">new</span>
+      <span class="ruby-constant">Profiler__</span><span class="ruby-operator">::</span><span class="ruby-identifier">print_profile</span>(<span class="ruby-identifier">io</span>)
+      <span class="ruby-identifier">io</span>.<span class="ruby-identifier">pos</span> = <span class="ruby-value">0</span>
+      <span class="ruby-identifier">result</span> = <span class="ruby-identifier">io</span>.<span class="ruby-identifier">read</span>
+      <span class="ruby-identifier">io</span>.<span class="ruby-identifier">close</span>
+      <span class="ruby-identifier">result</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,11 @@
+<strong>To: </strong><%= @message.receiver.name  -%><br />
+<strong>From: </strong><%= @message.sender.name -%><br />
+<strong>Sent: </strong><%= time_formatter(@message.created_at) -%><br />
+
+<p>
+  <%= emot_parse(linkified(@message.message)) %>
+</p>
+
+
+<%= link_to "Reply", :controller => "tekmail", :action => "send_message", :receiver => @message.sender %> | 
+<%= link_to "Back to index", :controller => "tekmail", :action => "" %>

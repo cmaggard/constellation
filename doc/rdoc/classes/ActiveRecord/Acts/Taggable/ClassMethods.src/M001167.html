@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>acts_as_taggable (ActiveRecord::Acts::Taggable::ClassMethods)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/plugins/acts_as_taggable_on_steroids/lib/acts_as_taggable.rb, line 9</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">acts_as_taggable</span>
+          <span class="ruby-identifier">has_many</span> <span class="ruby-identifier">:taggings</span>, <span class="ruby-identifier">:as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:taggable</span>, <span class="ruby-identifier">:dependent</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:destroy</span>, <span class="ruby-identifier">:include</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:tag</span>
+          <span class="ruby-identifier">has_many</span> <span class="ruby-identifier">:tags</span>, <span class="ruby-identifier">:through</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:taggings</span>
+          
+          <span class="ruby-identifier">before_save</span> <span class="ruby-identifier">:save_cached_tag_list</span>
+          <span class="ruby-identifier">after_save</span> <span class="ruby-identifier">:save_tags</span>
+          
+          <span class="ruby-identifier">include</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Acts</span><span class="ruby-operator">::</span><span class="ruby-constant">Taggable</span><span class="ruby-operator">::</span><span class="ruby-constant">InstanceMethods</span>
+          <span class="ruby-identifier">extend</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Acts</span><span class="ruby-operator">::</span><span class="ruby-constant">Taggable</span><span class="ruby-operator">::</span><span class="ruby-constant">SingletonMethods</span>
+          
+          <span class="ruby-identifier">alias_method_chain</span> <span class="ruby-identifier">:reload</span>, <span class="ruby-identifier">:tag_list</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

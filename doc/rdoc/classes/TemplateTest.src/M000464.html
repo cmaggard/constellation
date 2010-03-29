@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_instance_variables_should_work_inside_templates (TemplateTest)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/gems/haml-1.7.1/test/haml/template_test.rb, line 75</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_instance_variables_should_work_inside_templates</span>
+    <span class="ruby-ivar">@base</span>.<span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-value str">&quot;@content_for_layout&quot;</span>, <span class="ruby-value str">'something'</span>)
+    <span class="ruby-identifier">assert_equal</span>(<span class="ruby-value str">&quot;&lt;p&gt;something&lt;/p&gt;&quot;</span>, <span class="ruby-identifier">render</span>(<span class="ruby-value str">&quot;%p= @content_for_layout&quot;</span>).<span class="ruby-identifier">chomp</span>)
+
+    <span class="ruby-ivar">@base</span>.<span class="ruby-identifier">instance_eval</span>(<span class="ruby-value str">&quot;@author = 'Hampton Catlin'&quot;</span>)
+    <span class="ruby-identifier">assert_equal</span>(<span class="ruby-value str">&quot;&lt;div class='author'&gt;Hampton Catlin&lt;/div&gt;&quot;</span>, <span class="ruby-identifier">render</span>(<span class="ruby-value str">&quot;.author= @author&quot;</span>).<span class="ruby-identifier">chomp</span>)
+
+    <span class="ruby-ivar">@base</span>.<span class="ruby-identifier">instance_eval</span>(<span class="ruby-value str">&quot;@author = 'Hampton'&quot;</span>)
+    <span class="ruby-identifier">assert_equal</span>(<span class="ruby-value str">&quot;Hampton&quot;</span>, <span class="ruby-identifier">render</span>(<span class="ruby-value str">&quot;= @author&quot;</span>).<span class="ruby-identifier">chomp</span>)
+
+    <span class="ruby-ivar">@base</span>.<span class="ruby-identifier">instance_eval</span>(<span class="ruby-value str">&quot;@author = 'Catlin'&quot;</span>)
+    <span class="ruby-identifier">assert_equal</span>(<span class="ruby-value str">&quot;Catlin&quot;</span>, <span class="ruby-identifier">render</span>(<span class="ruby-value str">&quot;= @author&quot;</span>).<span class="ruby-identifier">chomp</span>)
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

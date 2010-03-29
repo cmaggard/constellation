@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: Sass::Plugin</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">Sass::Plugin</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/vendor/gems/haml-1_7_1/lib/sass/plugin_rb.html">
+                vendor/gems/haml-1.7.1/lib/sass/plugin.rb
+                </a>
+        <br />
+                <a href="../../files/vendor/gems/haml-1_7_1/test/sass/plugin_test_rb.html">
+                vendor/gems/haml-1.7.1/test/sass/plugin_test.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+This module contains methods that ActionController calls to automatically
+update <a href="../Sass.html">Sass</a> templates that need updating. It
+wasn&#8216;t designed to be used outside of the context of
+ActionController.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000673">options</a>&nbsp;&nbsp;
+      <a href="#M000674">options=</a>&nbsp;&nbsp;
+      <a href="#M000676">stylesheet_needs_update?</a>&nbsp;&nbsp;
+      <a href="#M000675">update_stylesheets</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000673" class="method-detail">
+        <a name="M000673"></a>
+
+        <div class="method-heading">
+          <a href="Plugin.src/M000673.html" target="Code" class="method-signature"
+            onclick="popupCode('Plugin.src/M000673.html');return false;">
+          <span class="method-name">options</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Gets various <a href="Plugin.html#M000673">options</a> for <a
+href="../Sass.html">Sass</a>. See README for details.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000674" class="method-detail">
+        <a name="M000674"></a>
+
+        <div class="method-heading">
+          <a href="Plugin.src/M000674.html" target="Code" class="method-signature"
+            onclick="popupCode('Plugin.src/M000674.html');return false;">
+          <span class="method-name">options=</span><span class="method-args">(value)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Sets various <a href="Plugin.html#M000673">options</a> for <a
+href="../Sass.html">Sass</a>.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000676" class="method-detail">
+        <a name="M000676"></a>
+
+        <div class="method-heading">
+          <a href="Plugin.src/M000676.html" target="Code" class="method-signature"
+            onclick="popupCode('Plugin.src/M000676.html');return false;">
+          <span class="method-name">stylesheet_needs_update?</span><span class="method-args">(name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000675" class="method-detail">
+        <a name="M000675"></a>
+
+        <div class="method-heading">
+          <a href="Plugin.src/M000675.html" target="Code" class="method-signature"
+            onclick="popupCode('Plugin.src/M000675.html');return false;">
+          <span class="method-name">update_stylesheets</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Checks each stylesheet in <tt><a
+href="Plugin.html#M000673">options</a>[:css_location]</tt> to see if it
+needs updating, and updates it using the corresponding template from <tt><a
+href="Plugin.html#M000673">options</a>[:templates]</tt> if it does.
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

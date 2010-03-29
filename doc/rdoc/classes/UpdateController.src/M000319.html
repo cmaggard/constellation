@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>close (UpdateController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File app/controllers/update_controller.rb, line 35</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">close</span>
+    <span class="ruby-ivar">@ticket</span> = <span class="ruby-constant">Ticket</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>])
+    <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@ticket</span>.<span class="ruby-identifier">claimed_by</span>.<span class="ruby-identifier">nil?</span>
+      <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-value str">&quot;Can't close an unclaimed ticket.  YOU LOSE.&quot;</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'/view'</span>, <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@ticket</span>.<span class="ruby-identifier">id</span>
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">get?</span>
+      <span class="ruby-ivar">@ticket</span>.<span class="ruby-identifier">parts</span> = <span class="ruby-value">0</span>
+      <span class="ruby-ivar">@ticket</span>.<span class="ruby-identifier">labor</span> = <span class="ruby-value">0</span>
+    <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">post?</span>
+      <span class="ruby-ivar">@note</span> = <span class="ruby-constant">Note</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:note</span>])
+      <span class="ruby-ivar">@note</span>.<span class="ruby-identifier">note</span> = <span class="ruby-value str">&quot;Service ticket closed&quot;</span>
+      <span class="ruby-ivar">@ticket</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:ticket</span>])
+      <span class="ruby-ivar">@ticket</span>.<span class="ruby-identifier">completed_at</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>
+      <span class="ruby-ivar">@ticket</span>.<span class="ruby-identifier">notes</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@note</span>
+      <span class="ruby-identifier">render</span> <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'close'</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@ticket</span>.<span class="ruby-identifier">save</span>
+      <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-value str">&quot;Ticket closed!&quot;</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'view'</span>, <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@ticket</span>.<span class="ruby-identifier">id</span>
+    <span class="ruby-keyword kw">end</span> <span class="ruby-comment cmt"># request.post?</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: TagListTest</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">TagListTest</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/vendor/plugins/acts_as_taggable_on_steroids/test/tag_list_test_rb.html">
+                vendor/plugins/acts_as_taggable_on_steroids/test/tag_list_test.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                <a href="Test/Unit/TestCase.html">
+                Test::Unit::TestCase
+               </a>
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000131">test_add</a>&nbsp;&nbsp;
+      <a href="#M000134">test_add_with_parsing</a>&nbsp;&nbsp;
+      <a href="#M000127">test_alternative_delimiter</a>&nbsp;&nbsp;
+      <a href="#M000128">test_duplicate_tags_removed</a>&nbsp;&nbsp;
+      <a href="#M000119">test_from_blank</a>&nbsp;&nbsp;
+      <a href="#M000117">test_from_leaves_string_unchanged</a>&nbsp;&nbsp;
+      <a href="#M000122">test_from_multiple_tags</a>&nbsp;&nbsp;
+      <a href="#M000125">test_from_multiple_tags_with_quote_and_commas</a>&nbsp;&nbsp;
+      <a href="#M000123">test_from_multiple_tags_with_quotes</a>&nbsp;&nbsp;
+      <a href="#M000126">test_from_removes_white_space</a>&nbsp;&nbsp;
+      <a href="#M000118">test_from_single_name</a>&nbsp;&nbsp;
+      <a href="#M000120">test_from_single_quoted_tag</a>&nbsp;&nbsp;
+      <a href="#M000124">test_from_with_single_quotes</a>&nbsp;&nbsp;
+      <a href="#M000133">test_new_with_parsing</a>&nbsp;&nbsp;
+      <a href="#M000132">test_remove</a>&nbsp;&nbsp;
+      <a href="#M000135">test_remove_with_parsing</a>&nbsp;&nbsp;
+      <a href="#M000121">test_spaces_do_not_delineate</a>&nbsp;&nbsp;
+      <a href="#M000130">test_to_s_with_alternative_delimiter</a>&nbsp;&nbsp;
+      <a href="#M000129">test_to_s_with_commas</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000131" class="method-detail">
+        <a name="M000131"></a>
+
+        <div class="method-heading">
+          <a href="TagListTest.src/M000131.html" target="Code" class="method-signature"
+            onclick="popupCode('TagListTest.src/M000131.html');return false;">
+          <span class="method-name">test_add</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000134" class="method-detail">
+        <a name="M000134"></a>
+
+        <div class="method-heading">
+          <a href="TagListTest.src/M000134.html" target="Code" class="method-signature"
+            onclick="popupCode('TagListTest.src/M000134.html');return false;">
+          <span class="method-name">test_add_with_parsing</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000127" class="method-detail">
+        <a name="M000127"></a>
+
+        <div class="method-heading">
+          <a href="TagListTest.src/M000127.html" target="Code" class="method-signature"
+            onclick="popupCode('TagListTest.src/M000127.html');return false;">
+          <span class="method-name">test_alternative_delimiter</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000128" class="method-detail">
+        <a name="M000128"></a>
+
+        <div class="method-heading">
+          <a href="TagListTest.src/M000128.html" target="Code" class="method-signature"
+            onclick="popupCode('TagListTest.src/M000128.html');return false;">
+          <span class="method-name">test_duplicate_tags_removed</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000119" class="method-detail">
+        <a name="M000119"></a>
+
+        <div class="method-heading">
+          <a href="TagListTest.src/M000119.html" target="Code" class="method-signature"
+            onclick="popupCode('TagListTest.src/M000119.html');return false;">
+          <span class="method-name">test_from_blank</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000117" class="method-detail">
+        <a name="M000117"></a>
+
+        <div class="method-heading">
+          <a href="TagListTest.src/M000117.html" target="Code" class="method-signature"
+            onclick="popupCode('TagListTest.src/M000117.html');return false;">
+          <span class="method-name">test_from_leaves_string_unchanged</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000122" class="method-detail">
+        <a name="M000122"></a>
+
+        <div class="method-heading">
+          <a href="TagListTest.src/M000122.html" target="Code" class="method-signature"
+            onclick="popupCode('TagListTest.src/M000122.html');return false;">
+          <span class="method-name">test_from_multiple_tags</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000125" class="method-detail">
+        <a name="M000125"></a>
+
+        <div class="method-heading">
+          <a href="TagListTest.src/M000125.html" target="Code" class="method-signature"
+            onclick="popupCode('TagListTest.src/M000125.html');return false;">
+          <span class="method-name">test_from_multiple_tags_with_quote_and_commas</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000123" class="method-detail">
+        <a name="M000123"></a>
+
+        <div class="method-heading">
+          <a href="TagListTest.src/M000123.html" target="Code" class="method-signature"
+            onclick="popupCode('TagListTest.src/M000123.html');return false;">
+          <span class="method-name">test_from_multiple_tags_with_quotes</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000126" class="method-detail">
+        <a name="M000126"></a>
+
+        <div class="method-heading">
+          <a href="TagListTest.src/M000126.html" target="Code" class="method-signature"
+            onclick="popupCode('TagListTest.src/M000126.html');return false;">
+          <span class="method-name">test_from_removes_white_space</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000118" class="method-detail">
+        <a name="M000118"></a>
+
+        <div class="method-heading">
+          <a href="TagListTest.src/M000118.html" target="Code" class="method-signature"
+            onclick="popupCode('TagListTest.src/M000118.html');return false;">
+          <span class="method-name">test_from_single_name</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000120" class="method-detail">
+        <a name="M000120"></a>
+
+        <div class="method-heading">
+          <a href="TagListTest.src/M000120.html" target="Code" class="method-signature"
+            onclick="popupCode('TagListTest.src/M000120.html');return false;">
+          <span class="method-name">test_from_single_quoted_tag</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000124" class="method-detail">
+        <a name="M000124"></a>
+
+        <div class="method-heading">
+          <a href="TagListTest.src/M000124.html" target="Code" class="method-signature"
+            onclick="popupCode('TagListTest.src/M000124.html');return false;">
+          <span class="method-name">test_from_with_single_quotes</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000133" class="method-detail">
+        <a name="M000133"></a>
+
+        <div class="method-heading">
+          <a href="TagListTest.src/M000133.html" target="Code" class="method-signature"
+            onclick="popupCode('TagListTest.src/M000133.html');return false;">
+          <span class="method-name">test_new_with_parsing</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000132" class="method-detail">
+        <a name="M000132"></a>
+
+        <div class="method-heading">
+          <a href="TagListTest.src/M000132.html" target="Code" class="method-signature"
+            onclick="popupCode('TagListTest.src/M000132.html');return false;">
+          <span class="method-name">test_remove</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000135" class="method-detail">
+        <a name="M000135"></a>
+
+        <div class="method-heading">
+          <a href="TagListTest.src/M000135.html" target="Code" class="method-signature"
+            onclick="popupCode('TagListTest.src/M000135.html');return false;">
+          <span class="method-name">test_remove_with_parsing</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000121" class="method-detail">
+        <a name="M000121"></a>
+
+        <div class="method-heading">
+          <a href="TagListTest.src/M000121.html" target="Code" class="method-signature"
+            onclick="popupCode('TagListTest.src/M000121.html');return false;">
+          <span class="method-name">test_spaces_do_not_delineate</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000130" class="method-detail">
+        <a name="M000130"></a>
+
+        <div class="method-heading">
+          <a href="TagListTest.src/M000130.html" target="Code" class="method-signature"
+            onclick="popupCode('TagListTest.src/M000130.html');return false;">
+          <span class="method-name">test_to_s_with_alternative_delimiter</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000129" class="method-detail">
+        <a name="M000129"></a>
+
+        <div class="method-heading">
+          <a href="TagListTest.src/M000129.html" target="Code" class="method-signature"
+            onclick="popupCode('TagListTest.src/M000129.html');return false;">
+          <span class="method-name">test_to_s_with_commas</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

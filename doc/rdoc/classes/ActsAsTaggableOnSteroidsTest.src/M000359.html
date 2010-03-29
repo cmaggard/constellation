@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_reassign_tag_list (ActsAsTaggableOnSteroidsTest)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/plugins/acts_as_taggable_on_steroids/test/acts_as_taggable_test.rb, line 162</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_reassign_tag_list</span>
+    <span class="ruby-identifier">assert_equivalent</span> [<span class="ruby-value str">&quot;Nature&quot;</span>, <span class="ruby-value str">&quot;Question&quot;</span>], <span class="ruby-identifier">posts</span>(<span class="ruby-identifier">:jonathan_rain</span>).<span class="ruby-identifier">tag_list</span>
+    <span class="ruby-identifier">posts</span>(<span class="ruby-identifier">:jonathan_rain</span>).<span class="ruby-identifier">taggings</span>.<span class="ruby-identifier">reload</span>
+    
+    <span class="ruby-comment cmt"># Only an update of the posts table should be executed</span>
+    <span class="ruby-identifier">assert_queries</span> <span class="ruby-value">1</span> <span class="ruby-keyword kw">do</span>
+      <span class="ruby-identifier">posts</span>(<span class="ruby-identifier">:jonathan_rain</span>).<span class="ruby-identifier">update_attributes!</span>(<span class="ruby-identifier">:tag_list</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">posts</span>(<span class="ruby-identifier">:jonathan_rain</span>).<span class="ruby-identifier">tag_list</span>.<span class="ruby-identifier">to_s</span>)
+    <span class="ruby-keyword kw">end</span>
+    
+    <span class="ruby-identifier">assert_equivalent</span> [<span class="ruby-value str">&quot;Nature&quot;</span>, <span class="ruby-value str">&quot;Question&quot;</span>], <span class="ruby-identifier">posts</span>(<span class="ruby-identifier">:jonathan_rain</span>).<span class="ruby-identifier">tag_list</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

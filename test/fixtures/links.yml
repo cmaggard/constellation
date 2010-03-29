@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+first:
+  id: 1
+  title: GOOGLE
+  link: http://www.google.com
+another:
+  id: 2
+  title: MSN
+  link: http://www.msn.com

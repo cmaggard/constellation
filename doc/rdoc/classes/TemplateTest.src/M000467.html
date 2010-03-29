@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_rhtml_still_renders (TemplateTest)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/gems/haml-1.7.1/test/haml/template_test.rb, line 98</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_rhtml_still_renders</span>
+    <span class="ruby-comment cmt"># Make sure it renders normally</span>
+    <span class="ruby-identifier">res</span> = <span class="ruby-ivar">@base</span>.<span class="ruby-identifier">render</span>(<span class="ruby-value str">&quot;../rhtml/standard&quot;</span>)
+    <span class="ruby-identifier">assert</span> <span class="ruby-operator">!</span>(<span class="ruby-identifier">res</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">res</span>.<span class="ruby-identifier">empty?</span>)
+
+    <span class="ruby-comment cmt"># Register Haml stuff in @base...</span>
+    <span class="ruby-ivar">@base</span>.<span class="ruby-identifier">render</span>(<span class="ruby-value str">&quot;standard&quot;</span>) 
+
+    <span class="ruby-comment cmt"># Does it still render?</span>
+    <span class="ruby-identifier">res</span> = <span class="ruby-ivar">@base</span>.<span class="ruby-identifier">render</span>(<span class="ruby-value str">&quot;../rhtml/standard&quot;</span>)
+    <span class="ruby-identifier">assert</span> <span class="ruby-operator">!</span>(<span class="ruby-identifier">res</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">res</span>.<span class="ruby-identifier">empty?</span>)
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,8 @@
+<% unless @unit.errors.empty? %>
+<%= error_messages_for "unit" %>
+<% end %>
+
+<h1>Edit Unit</h1>
+<% form_for :unit, @unit do |f| %>
+  <%= render :partial => "unit_form", :locals => { :f => f } %>
+<% end %>

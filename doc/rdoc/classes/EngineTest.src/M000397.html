@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_dynamc_attrs_shouldnt_register_as_literal_values (EngineTest)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/gems/haml-1.7.1/test/haml/engine_test.rb, line 118</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_dynamc_attrs_shouldnt_register_as_literal_values</span>
+    <span class="ruby-identifier">assert_equal</span>(<span class="ruby-value str">&quot;&lt;p a='b2c'&gt;\n&lt;/p&gt;\n&quot;</span>, <span class="ruby-identifier">render</span>(<span class="ruby-value str">'%p{:a =&gt; &quot;b#{1 + 1}c&quot;}'</span>))
+    <span class="ruby-identifier">assert_equal</span>(<span class="ruby-value str">&quot;&lt;p a='b2c'&gt;\n&lt;/p&gt;\n&quot;</span>, <span class="ruby-identifier">render</span>(<span class="ruby-value str">&quot;%p{:a =&gt; 'b' + (1 + 1).to_s + 'c'}&quot;</span>))
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

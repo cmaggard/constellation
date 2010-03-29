@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: Spec::DSL::BehaviourEval::ModuleMethods</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">Spec::DSL::BehaviourEval::ModuleMethods</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../../files/spec/spec_helper_rb.html">
+                spec/spec_helper.rb
+                </a>
+        <br />
+                <a href="../../../../files/vendor/plugins/rspec/lib/spec/dsl/behaviour_eval_rb.html">
+                vendor/plugins/rspec/lib/spec/dsl/behaviour_eval.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M001078">after_all_proc</a>&nbsp;&nbsp;
+      <a href="#M001079">after_each_proc</a>&nbsp;&nbsp;
+      <a href="#M001077">before_all_proc</a>&nbsp;&nbsp;
+      <a href="#M001076">before_each_proc</a>&nbsp;&nbsp;
+      <a href="#M001081">examples</a>&nbsp;&nbsp;
+      <a href="#M001070">include</a>&nbsp;&nbsp;
+      <a href="#M001080">included_modules</a>&nbsp;&nbsp;
+      <a href="#M001069">inherit</a>&nbsp;&nbsp;
+      <a href="#M001073">it</a>&nbsp;&nbsp;
+      <a href="#M001071">it_should_behave_like</a>&nbsp;&nbsp;
+      <a href="#M001075">method_missing</a>&nbsp;&nbsp;
+      <a href="#M001072">predicate_matchers</a>&nbsp;&nbsp;
+      <a href="#M001068">should</a>&nbsp;&nbsp;
+      <a href="#M001074">specify</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+    <div id="includes">
+      <h3 class="section-bar">Included Modules</h3>
+
+      <div id="includes-list">
+        <span class="include-name"><a href="../BehaviourCallbacks.html">BehaviourCallbacks</a></span>
+      </div>
+    </div>
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">behaviour</td>
+          <td class="context-item-value">&nbsp;[W]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">description</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M001070" class="method-detail">
+        <a name="M001070"></a>
+
+        <div class="method-heading">
+          <a href="ModuleMethods.src/M001070.html" target="Code" class="method-signature"
+            onclick="popupCode('ModuleMethods.src/M001070.html');return false;">
+          <span class="method-name">include</span><span class="method-args">(*mods)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+You can pass this one or many modules. Each module will subsequently be
+included in the each object in which an example is run. Use this to provide
+global helper methods to your <a
+href="ModuleMethods.html#M001081">examples</a>.
+</p>
+<h2><a href="../Example.html">Example</a></h2>
+<pre>
+  module HelperMethods
+    def helper_method
+      ...
+    end
+  end
+
+  describe Thing do
+    include HelperMethods
+    it &quot;should do stuff&quot; do
+      helper_method
+    end
+  end
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M001069" class="method-detail">
+        <a name="M001069"></a>
+
+        <div class="method-heading">
+          <a href="ModuleMethods.src/M001069.html" target="Code" class="method-signature"
+            onclick="popupCode('ModuleMethods.src/M001069.html');return false;">
+          <span class="method-name">inherit</span><span class="method-args">(klass)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+RSpec runs every example in a new instance of Object, mixing in the
+behaviour necessary to run <a
+href="ModuleMethods.html#M001081">examples</a>. Because this behaviour gets
+mixed in, <a href="ModuleMethods.html#M001073">it</a> can get mixed in to
+an instance of any class at all.
+</p>
+<p>
+This is something that you would hardly ever use, but there is one common
+use case for <a href="ModuleMethods.html#M001073">it</a> - inheriting from
+<a href="../../../Test/Unit/TestCase.html">Test::Unit::TestCase</a>.
+RSpec&#8216;s <a href="../../Rails.html">Rails</a> plugin uses this feature
+to provide access to all of the features that are available for <a
+href="../../../Test/Unit.html">Test::Unit</a> within RSpec <a
+href="ModuleMethods.html#M001081">examples</a>.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M001073" class="method-detail">
+        <a name="M001073"></a>
+
+        <div class="method-heading">
+          <a href="ModuleMethods.src/M001073.html" target="Code" class="method-signature"
+            onclick="popupCode('ModuleMethods.src/M001073.html');return false;">
+          <span class="method-name">it</span><span class="method-args">(description=:__generate_description, opts={}, &amp;block)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Creates an instance of <a href="../Example.html">Spec::DSL::Example</a> and
+adds <a href="ModuleMethods.html#M001073">it</a> to a collection of <a
+href="ModuleMethods.html#M001081">examples</a> of the current behaviour.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M001071" class="method-detail">
+        <a name="M001071"></a>
+
+        <div class="method-heading">
+          <a href="ModuleMethods.src/M001071.html" target="Code" class="method-signature"
+            onclick="popupCode('ModuleMethods.src/M001071.html');return false;">
+          <span class="method-name">it_should_behave_like</span><span class="method-args">(behaviour_description)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Use this to pull in <a href="ModuleMethods.html#M001081">examples</a> from
+shared behaviours. See <a href="../../Runner.html">Spec::Runner</a> for
+information about shared behaviours.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M001072" class="method-detail">
+        <a name="M001072"></a>
+
+        <div class="method-heading">
+          <a href="ModuleMethods.src/M001072.html" target="Code" class="method-signature"
+            onclick="popupCode('ModuleMethods.src/M001072.html');return false;">
+          <span class="method-name">predicate_matchers[matcher_name] = method_on_object<br />
+predicate_matchers[matcher_name] = [method1_on_object, method2_on_object]<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Dynamically generates a custom matcher that will match a predicate on your
+class. RSpec provides a couple of these out of the box:
+</p>
+<pre>
+  exist (or state expectations)
+    File.should exist(&quot;path/to/file&quot;)
+
+  an_instance_of (for mock argument constraints)
+    mock.should_receive(:message).with(an_instance_of(String))
+</pre>
+<h2>Examples</h2>
+<pre>
+  class Fish
+    def can_swim?
+      true
+    end
+  end
+
+  describe Fish do
+    predicate_matchers[:swim] = :can_swim?
+    it &quot;should swim&quot; do
+      Fish.new.should swim
+    end
+  end
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M001068" class="method-detail">
+        <a name="M001068"></a>
+
+        <div class="method-heading">
+          <a href="ModuleMethods.src/M001068.html" target="Code" class="method-signature"
+            onclick="popupCode('ModuleMethods.src/M001068.html');return false;">
+          <span class="method-name">should</span><span class="method-args">(description=:_generatedescription, opts={}, &amp;block)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M001074" class="method-detail">
+        <a name="M001074"></a>
+
+        <div class="method-heading">
+          <a href="ModuleMethods.src/M001074.html" target="Code" class="method-signature"
+            onclick="popupCode('ModuleMethods.src/M001074.html');return false;">
+          <span class="method-name">specify</span><span class="method-args">(description=:__generate_description, opts={}, &amp;block)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="ModuleMethods.html#M001073">it</a>.
+</p>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Protected Instance methods</h3>
+
+      <div id="method-M001078" class="method-detail">
+        <a name="M001078"></a>
+
+        <div class="method-heading">
+          <a href="ModuleMethods.src/M001078.html" target="Code" class="method-signature"
+            onclick="popupCode('ModuleMethods.src/M001078.html');return false;">
+          <span class="method-name">after_all_proc</span><span class="method-args">(behaviour_type)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M001079" class="method-detail">
+        <a name="M001079"></a>
+
+        <div class="method-heading">
+          <a href="ModuleMethods.src/M001079.html" target="Code" class="method-signature"
+            onclick="popupCode('ModuleMethods.src/M001079.html');return false;">
+          <span class="method-name">after_each_proc</span><span class="method-args">(behaviour_type)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M001077" class="method-detail">
+        <a name="M001077"></a>
+
+        <div class="method-heading">
+          <a href="ModuleMethods.src/M001077.html" target="Code" class="method-signature"
+            onclick="popupCode('ModuleMethods.src/M001077.html');return false;">
+          <span class="method-name">before_all_proc</span><span class="method-args">(behaviour_type, &amp;error_handler)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M001076" class="method-detail">
+        <a name="M001076"></a>
+
+        <div class="method-heading">
+          <a href="ModuleMethods.src/M001076.html" target="Code" class="method-signature"
+            onclick="popupCode('ModuleMethods.src/M001076.html');return false;">
+          <span class="method-name">before_each_proc</span><span class="method-args">(behaviour_type, &amp;error_handler)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M001081" class="method-detail">
+        <a name="M001081"></a>
+
+        <div class="method-heading">
+          <a href="ModuleMethods.src/M001081.html" target="Code" class="method-signature"
+            onclick="popupCode('ModuleMethods.src/M001081.html');return false;">
+          <span class="method-name">examples</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M001080" class="method-detail">
+        <a name="M001080"></a>
+
+        <div class="method-heading">
+          <a href="ModuleMethods.src/M001080.html" target="Code" class="method-signature"
+            onclick="popupCode('ModuleMethods.src/M001080.html');return false;">
+          <span class="method-name">included_modules</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M001075" class="method-detail">
+        <a name="M001075"></a>
+
+        <div class="method-heading">
+          <a href="ModuleMethods.src/M001075.html" target="Code" class="method-signature"
+            onclick="popupCode('ModuleMethods.src/M001075.html');return false;">
+          <span class="method-name">method_missing</span><span class="method-args">(method_name, *args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

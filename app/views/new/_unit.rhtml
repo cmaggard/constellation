@@ -1,0 +1,6 @@
+<div class="result">
+  <%= link_to "Select", :action => :find_unit, :id => unit.id %>
+  <%= link_to "Edit", :action => :edit_unit, :id => unit.id %>
+  <strong><%= unit.serial_number %></strong><br/>
+  <em><%= unit.manufacturer.name + " " + unit.type.name %></em>
+</div>

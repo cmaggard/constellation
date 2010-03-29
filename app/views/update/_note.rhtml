@@ -1,0 +1,9 @@
+  <tr style="background-color:#eee" id="note<%= note.id %>">
+    <td align="center">
+      <%=h note.technician.initials %><br />
+      <%=h note.created_at.to_formatted_s(:long) %>
+    </td>
+    <td>
+      <%= emot_parse(note.note) %>
+    </td>
+  </tr>

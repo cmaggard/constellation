@@ -1,0 +1,14 @@
+<% form_for :part, @part, :url => { :controller => '/warranty', 
+                                        :action => :request_part, 
+                                        :id => @ticket.id 
+                                      } do |p| %>
+    <fieldset>
+        <label>Technician:</label>
+        <%= technician_dropdown(p, session[:technician]) %>
+        
+        <label>Part: </label>
+        <%= p.text_field :part %>
+
+        <%= submit_tag "Make Chad's life harder!" %>
+    </fieldset>
+<% end %>

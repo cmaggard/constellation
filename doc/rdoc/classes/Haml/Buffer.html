@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Haml::Buffer</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Haml::Buffer</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/vendor/gems/haml-1_7_1/lib/haml/buffer_rb.html">
+                vendor/gems/haml-1.7.1/lib/haml/buffer.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+This class is used only internally. It holds the buffer of XHTML that is
+eventually output by <a href="Engine.html">Haml::Engine</a>&#8216;s to_html
+method. It&#8216;s called from within the precompiled code, and helps
+reduce the amount of processing done within instance_eval&#8216;d code.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000644">build_attributes</a>&nbsp;&nbsp;
+      <a href="#M000643">close_comment</a>&nbsp;&nbsp;
+      <a href="#M000641">close_tag</a>&nbsp;&nbsp;
+      <a href="#M000640">merge_attrs</a>&nbsp;&nbsp;
+      <a href="#M000635">new</a>&nbsp;&nbsp;
+      <a href="#M000645">one_liner?</a>&nbsp;&nbsp;
+      <a href="#M000642">open_comment</a>&nbsp;&nbsp;
+      <a href="#M000638">open_prerendered_tag</a>&nbsp;&nbsp;
+      <a href="#M000639">open_tag</a>&nbsp;&nbsp;
+      <a href="#M000637">push_script</a>&nbsp;&nbsp;
+      <a href="#M000636">push_text</a>&nbsp;&nbsp;
+      <a href="#M000633">tabulation</a>&nbsp;&nbsp;
+      <a href="#M000634">tabulation=</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+    <div id="includes">
+      <h3 class="section-bar">Included Modules</h3>
+
+      <div id="includes-list">
+        <span class="include-name"><a href="Helpers.html">Haml::Helpers</a></span>
+      </div>
+    </div>
+
+    <div id="section">
+
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">ONE_LINER_LENGTH</td>
+          <td>=</td>
+          <td class="context-item-value">50</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+Set the maximum length for a line to be considered a one-liner. Lines &lt;=
+the maximum will be rendered on one line, i.e. <tt>&lt;p&gt;Hello
+world&lt;/p&gt;</tt>
+
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">buffer</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+The string that holds the compiled XHTML. This is aliased as _erbout for
+compatibility with ERB-specific code.
+
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000640" class="method-detail">
+        <a name="M000640"></a>
+
+        <div class="method-heading">
+          <a href="Buffer.src/M000640.html" target="Code" class="method-signature"
+            onclick="popupCode('Buffer.src/M000640.html');return false;">
+          <span class="method-name">merge_attrs</span><span class="method-args">(to, from)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000635" class="method-detail">
+        <a name="M000635"></a>
+
+        <div class="method-heading">
+          <a href="Buffer.src/M000635.html" target="Code" class="method-signature"
+            onclick="popupCode('Buffer.src/M000635.html');return false;">
+          <span class="method-name">new</span><span class="method-args">(options = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Creates a <a href="Buffer.html#M000635">new</a> buffer.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000645" class="method-detail">
+        <a name="M000645"></a>
+
+        <div class="method-heading">
+          <a href="Buffer.src/M000645.html" target="Code" class="method-signature"
+            onclick="popupCode('Buffer.src/M000645.html');return false;">
+          <span class="method-name">one_liner?</span><span class="method-args">(value)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns whether or not the given value is short enough to be rendered on
+one line.
+</p>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000644" class="method-detail">
+        <a name="M000644"></a>
+
+        <div class="method-heading">
+          <a href="Buffer.src/M000644.html" target="Code" class="method-signature"
+            onclick="popupCode('Buffer.src/M000644.html');return false;">
+          <span class="method-name">build_attributes</span><span class="method-args">(attributes = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Takes a hash and builds a list of XHTML attributes from it, returning the
+result.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000643" class="method-detail">
+        <a name="M000643"></a>
+
+        <div class="method-heading">
+          <a href="Buffer.src/M000643.html" target="Code" class="method-signature"
+            onclick="popupCode('Buffer.src/M000643.html');return false;">
+          <span class="method-name">close_comment</span><span class="method-args">(has_conditional, tabulation)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Closes an XHTML comment.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000641" class="method-detail">
+        <a name="M000641"></a>
+
+        <div class="method-heading">
+          <a href="Buffer.src/M000641.html" target="Code" class="method-signature"
+            onclick="popupCode('Buffer.src/M000641.html');return false;">
+          <span class="method-name">close_tag</span><span class="method-args">(name, tabulation)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Creates a closing tag with the given name.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000642" class="method-detail">
+        <a name="M000642"></a>
+
+        <div class="method-heading">
+          <a href="Buffer.src/M000642.html" target="Code" class="method-signature"
+            onclick="popupCode('Buffer.src/M000642.html');return false;">
+          <span class="method-name">open_comment</span><span class="method-args">(try_one_line, conditional, tabulation)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Opens an XHTML comment.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000638" class="method-detail">
+        <a name="M000638"></a>
+
+        <div class="method-heading">
+          <a href="Buffer.src/M000638.html" target="Code" class="method-signature"
+            onclick="popupCode('Buffer.src/M000638.html');return false;">
+          <span class="method-name">open_prerendered_tag</span><span class="method-args">(tag, tabulation)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000639" class="method-detail">
+        <a name="M000639"></a>
+
+        <div class="method-heading">
+          <a href="Buffer.src/M000639.html" target="Code" class="method-signature"
+            onclick="popupCode('Buffer.src/M000639.html');return false;">
+          <span class="method-name">open_tag</span><span class="method-args">(name, tabulation, atomic, try_one_line, class_id, obj_ref, attributes_hash)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Takes the various information about the opening tag for an element, formats
+it, and adds it to the buffer.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000637" class="method-detail">
+        <a name="M000637"></a>
+
+        <div class="method-heading">
+          <a href="Buffer.src/M000637.html" target="Code" class="method-signature"
+            onclick="popupCode('Buffer.src/M000637.html');return false;">
+          <span class="method-name">push_script</span><span class="method-args">(result, tabulation, flattened)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Properly formats the output of a script that was run in the instance_eval.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000636" class="method-detail">
+        <a name="M000636"></a>
+
+        <div class="method-heading">
+          <a href="Buffer.src/M000636.html" target="Code" class="method-signature"
+            onclick="popupCode('Buffer.src/M000636.html');return false;">
+          <span class="method-name">push_text</span><span class="method-args">(text, tabulation)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Renders <tt>text</tt> with the proper <a
+href="Buffer.html#M000633">tabulation</a>. This also deals with making a
+possible one-line tag one line or not.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000633" class="method-detail">
+        <a name="M000633"></a>
+
+        <div class="method-heading">
+          <a href="Buffer.src/M000633.html" target="Code" class="method-signature"
+            onclick="popupCode('Buffer.src/M000633.html');return false;">
+          <span class="method-name">tabulation</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Gets the current <a href="Buffer.html#M000633">tabulation</a> of the
+document.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000634" class="method-detail">
+        <a name="M000634"></a>
+
+        <div class="method-heading">
+          <a href="Buffer.src/M000634.html" target="Code" class="method-signature"
+            onclick="popupCode('Buffer.src/M000634.html');return false;">
+          <span class="method-name">tabulation=</span><span class="method-args">(val)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Sets the current <a href="Buffer.html#M000633">tabulation</a> of the
+document.
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

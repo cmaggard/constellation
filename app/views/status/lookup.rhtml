@@ -1,0 +1,22 @@
+<h1>Ticket Information</h1>
+
+<dl>
+  <dt>Ticket ID:</dt>
+  <dd><%= @ticket.id %></dd>
+  <dt>First Name:</dt>
+  <dd><%= @ticket.customer.first_name %></dd>
+  <dt>Last Name:</dt>
+  <dd><%= @ticket.customer.last_name %></dd>
+</dl>
+
+<h3>
+	Current Status: 
+	<span style="color:red"><%= @status.humanize -%></span>
+</h3>
+
+<%= render :partial => @status %>
+
+<h3>
+	Bookmarkable Link: 
+	<a href="<%= bookmark_link -%>"><%= bookmark_link -%></a>
+</h3>

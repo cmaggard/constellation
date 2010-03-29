@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>run (Spec::Runner::BehaviourRunner)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/behaviour_runner.rb, line 18</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run</span>(<span class="ruby-identifier">paths</span>, <span class="ruby-identifier">exit_when_done</span>)
+        <span class="ruby-identifier">prepare!</span>(<span class="ruby-identifier">paths</span>)
+        <span class="ruby-keyword kw">begin</span>
+          <span class="ruby-identifier">run_behaviours</span>
+        <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Interrupt</span>
+        <span class="ruby-keyword kw">ensure</span>
+          <span class="ruby-identifier">report_end</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-identifier">failure_count</span> = <span class="ruby-identifier">report_dump</span>
+        
+        <span class="ruby-identifier">heckle</span> <span class="ruby-keyword kw">if</span>(<span class="ruby-identifier">failure_count</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@options</span>.<span class="ruby-identifier">heckle_runner</span>.<span class="ruby-identifier">nil?</span>)
+        
+        <span class="ruby-keyword kw">if</span>(<span class="ruby-identifier">exit_when_done</span>)
+          <span class="ruby-identifier">exit_code</span> = (<span class="ruby-identifier">failure_count</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>) <span class="ruby-operator">?</span> <span class="ruby-value">0</span> <span class="ruby-operator">:</span> <span class="ruby-value">1</span>
+          <span class="ruby-identifier">exit</span>(<span class="ruby-identifier">exit_code</span>)
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-identifier">failure_count</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

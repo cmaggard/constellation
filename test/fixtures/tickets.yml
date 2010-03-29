@@ -1,0 +1,41 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+spyware:
+  id: 1
+  problem: Unit has viruses and spyware.
+  created_at: <%= 3.days.ago.to_s(:db) %> 
+  customer_id: 1
+  unit_id: 1
+  power_cord: false
+  bag: false
+  discs: false
+  priority: 0
+  claimed_by: 1
+cdrom_problem:
+  id: 2
+  problem: CD-ROM not reading discs, unit expedited.
+  created_at: <%= 2.hours.ago.to_s(:db) %>
+  customer_id: 2
+  unit_id: 2
+  power_cord: false
+  bag: false
+  discs: false
+  misc_accessories: Manual
+  priority: 1
+  claimed_by: 1
+dung_beetles:
+  id: 3
+  problem: Infested with dung beetles
+  created_at: <%= 5.days.ago.to_s(:db) %>
+  completed_at: <%= 2.days.ago.to_s(:db) %>
+  customer_id: 1
+  unit_id: 2
+  power_cord: false
+  bag: false
+  discs: false
+  misc_accessories: Manual
+  priority: 1
+  quote_number: 12
+  services_performed: Removed dung beetles
+  parts: 0
+  labor: 100
+  claimed_by: 1

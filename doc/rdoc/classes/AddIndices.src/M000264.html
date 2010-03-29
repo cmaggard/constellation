@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>up (AddIndices)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File db/migrate/029_add_indices.rb, line 2</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">up</span>
+    <span class="ruby-identifier">num</span> = <span class="ruby-value">5000</span>
+    <span class="ruby-identifier">say_with_time</span> <span class="ruby-node">&quot;#{num} Finds of Serial Number pre-index&quot;</span> <span class="ruby-keyword kw">do</span>
+      <span class="ruby-identifier">num</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span>
+        <span class="ruby-constant">Unit</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value str">&quot;serial_number = ?&quot;</span>, <span class="ruby-value str">&quot;9z3zt21&quot;</span>])
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+    
+    <span class="ruby-identifier">add_index</span> <span class="ruby-identifier">:units</span>, <span class="ruby-identifier">:serial_number</span>, <span class="ruby-identifier">:index_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;idx_serial&quot;</span>
+    
+    <span class="ruby-identifier">say_with_time</span> <span class="ruby-node">&quot;#{num} Finds of Serial Number post-index&quot;</span> <span class="ruby-keyword kw">do</span>
+      <span class="ruby-identifier">num</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span>
+        <span class="ruby-constant">Unit</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value str">&quot;serial_number = ?&quot;</span>, <span class="ruby-value str">&quot;9z3zt21&quot;</span>])
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

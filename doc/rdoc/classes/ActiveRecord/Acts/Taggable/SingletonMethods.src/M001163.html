@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>find_options_for_find_tagged_with (ActiveRecord::Acts::Taggable::SingletonMethods)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/plugins/acts_as_taggable_on_steroids/lib/acts_as_taggable.rb, line 43</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_options_for_find_tagged_with</span>(<span class="ruby-identifier">tags</span>, <span class="ruby-identifier">options</span> = {})
+          <span class="ruby-identifier">tags</span> = <span class="ruby-identifier">tags</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>) <span class="ruby-operator">?</span> <span class="ruby-constant">TagList</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">tags</span>.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">:to_s</span>)) <span class="ruby-operator">:</span> <span class="ruby-constant">TagList</span>.<span class="ruby-identifier">from</span>(<span class="ruby-identifier">tags</span>)
+          <span class="ruby-identifier">options</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">dup</span>
+          
+          <span class="ruby-keyword kw">return</span> {} <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">tags</span>.<span class="ruby-identifier">empty?</span>
+          
+          <span class="ruby-identifier">conditions</span> = []
+          <span class="ruby-identifier">conditions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">sanitize_sql</span>(<span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:conditions</span>)) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:conditions</span>]
+          
+          <span class="ruby-identifier">taggings_alias</span>, <span class="ruby-identifier">tags_alias</span> = <span class="ruby-node">&quot;#{table_name}_taggings&quot;</span>, <span class="ruby-node">&quot;#{table_name}_tags&quot;</span>
+          
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:exclude</span>)
+            <span class="ruby-identifier">conditions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;\#{table_name}.id NOT IN\n(SELECT \#{Tagging.table_name}.taggable_id FROM \#{Tagging.table_name}\nINNER JOIN \#{Tag.table_name} ON \#{Tagging.table_name}.tag_id = \#{Tag.table_name}.id\nWHERE \#{tags_condition(tags)} AND \#{Tagging.table_name}.taggable_type = \#{quote_value(base_class.name)})\n&quot;</span>
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:match_all</span>)
+              <span class="ruby-identifier">conditions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;(SELECT COUNT(*) FROM \#{Tagging.table_name}\nINNER JOIN \#{Tag.table_name} ON \#{Tagging.table_name}.tag_id = \#{Tag.table_name}.id\nWHERE \#{Tagging.table_name}.taggable_type = \#{quote_value(base_class.name)} AND\ntaggable_id = \#{table_name}.id AND\n\#{tags_condition(tags)}) = \#{tags.size}\n&quot;</span>
+            <span class="ruby-keyword kw">else</span>
+              <span class="ruby-identifier">conditions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">tags_condition</span>(<span class="ruby-identifier">tags</span>, <span class="ruby-identifier">tags_alias</span>)
+            <span class="ruby-keyword kw">end</span>
+          <span class="ruby-keyword kw">end</span>
+          
+          { <span class="ruby-identifier">:select</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;DISTINCT #{table_name}.*&quot;</span>,
+            <span class="ruby-identifier">:joins</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;INNER JOIN #{Tagging.table_name} #{taggings_alias} ON #{taggings_alias}.taggable_id = #{table_name}.#{primary_key} AND #{taggings_alias}.taggable_type = #{quote_value(base_class.name)} &quot;</span> <span class="ruby-operator">+</span>
+                      <span class="ruby-node">&quot;INNER JOIN #{Tag.table_name} #{tags_alias} ON #{tags_alias}.id = #{taggings_alias}.tag_id&quot;</span>,
+            <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">conditions</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot; AND &quot;</span>)
+          }.<span class="ruby-identifier">reverse_merge!</span>(<span class="ruby-identifier">options</span>)
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

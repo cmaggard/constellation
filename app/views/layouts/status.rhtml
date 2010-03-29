@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  <title>High Tech Service - Unit Status</title>
+  <style type="text/css">
+    dt {
+	clear: both;
+	float: left;
+	text-align: left;
+	padding: 4px 2px 2px 2px;
+	width: 120px;
+    }
+
+    dd {
+	padding: 3px 0 3px 0;
+	padding-left: 6px;
+    }
+
+    #error {
+	border: 2px solid #FF3333;
+	background-color: #FFDDDD;
+	width: 300px;
+	padding: 15px;
+    }
+
+    p {
+	width: 400px;
+	margin: 5px;
+	padding: 5px;
+	text-align: justify;
+    }
+  </style>
+ </head>
+ <body>
+
+  <% if flash[:error] %>
+  <fieldset id="error">
+   <legend>Error</legend>
+   <%= flash[:error] %>
+  </fieldset>
+  <% end %>
+
+<%= yield -%>
+
+ </body>
+</html>

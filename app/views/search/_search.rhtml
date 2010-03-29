@@ -1,0 +1,7 @@
+  <tr>
+    <td width="100"><%= link_to search.id, :controller => "view", :id => search.id %></td>
+    <td width="100"><%= search.customer.first_last_name %></td>
+    <td width="100"><%= search.unit.manufacturer_type %></td>
+    <td width="100"><%= search.unit.serial_number %></td>
+    <td width="100"><%= status(search) %></td>
+  </tr>

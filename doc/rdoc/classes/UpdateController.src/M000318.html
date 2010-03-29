@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>claim (UpdateController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File app/controllers/update_controller.rb, line 6</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">claim</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'queue'</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>]
+    <span class="ruby-identifier">claiming_tech</span> = <span class="ruby-constant">Technician</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">session</span>[<span class="ruby-identifier">:technician</span>])
+    <span class="ruby-identifier">tic</span> = <span class="ruby-constant">Ticket</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>])
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">tic</span>.<span class="ruby-identifier">claimed_by</span>.<span class="ruby-identifier">nil?</span>
+      <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-node">&quot;Ticket claimed by Arch-Technician #{claiming_tech.name}!&quot;</span>
+      <span class="ruby-identifier">note</span> = <span class="ruby-node">&quot;Unit claimed by #{claiming_tech.name}&quot;</span>
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-identifier">prev_tech</span> = <span class="ruby-identifier">tic</span>.<span class="ruby-identifier">claimed_by</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">claiming_tech</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">prev_tech</span>
+        <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-value str">&quot;You can't claim your own unit, much like you cannot 
+                          triple stamp a double stamp.&quot;</span>
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-node">&quot;Ticket stolen away by Master Technician 
+                          #{claiming_tech.name} from the slightly 
+                          less-Master Technician #{prev_tech.name}!&quot;</span>
+        <span class="ruby-identifier">note</span> = <span class="ruby-node">&quot;Unit claimed by #{claiming_tech.name} from #{prev_tech.name}&quot;</span>
+      <span class="ruby-keyword kw">end</span> <span class="ruby-comment cmt"># techs the same?</span>
+    <span class="ruby-keyword kw">end</span> <span class="ruby-comment cmt">#ticket claimed?</span>
+    <span class="ruby-identifier">tic</span>.<span class="ruby-identifier">update_attribute</span>(<span class="ruby-identifier">:claimed_by</span>, <span class="ruby-identifier">claiming_tech</span>)
+    <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">note</span>.<span class="ruby-identifier">nil?</span>
+      <span class="ruby-ivar">@note</span> = <span class="ruby-constant">Note</span>.<span class="ruby-identifier">new</span>
+      <span class="ruby-ivar">@note</span>.<span class="ruby-identifier">technician</span> = <span class="ruby-identifier">claiming_tech</span>
+      <span class="ruby-ivar">@note</span>.<span class="ruby-identifier">note</span> = <span class="ruby-identifier">note</span>
+      <span class="ruby-identifier">tic</span>.<span class="ruby-identifier">notes</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@note</span>
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'view'</span>, <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>]
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

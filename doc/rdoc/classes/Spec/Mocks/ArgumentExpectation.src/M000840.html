@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>convert_constraint (Spec::Mocks::ArgumentExpectation)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/mocks/argument_expectation.rb, line 144</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">convert_constraint</span>(<span class="ruby-identifier">constraint</span>)
+        <span class="ruby-keyword kw">if</span> [<span class="ruby-identifier">:anything</span>, <span class="ruby-identifier">:numeric</span>, <span class="ruby-identifier">:boolean</span>, <span class="ruby-identifier">:string</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">constraint</span>)
+          <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">constraint</span>
+          <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:anything</span>
+            <span class="ruby-identifier">instead</span> = <span class="ruby-value str">&quot;anything()&quot;</span>
+          <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:boolean</span>
+            <span class="ruby-identifier">instead</span> = <span class="ruby-value str">&quot;boolean()&quot;</span>
+          <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:numeric</span>
+            <span class="ruby-identifier">instead</span> = <span class="ruby-value str">&quot;an_instance_of(Numeric)&quot;</span>
+          <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:string</span>
+            <span class="ruby-identifier">instead</span> = <span class="ruby-value str">&quot;an_instance_of(String)&quot;</span>
+          <span class="ruby-keyword kw">end</span>
+          <span class="ruby-identifier">warn_deprecated</span>(<span class="ruby-identifier">constraint</span>.<span class="ruby-identifier">inspect</span>, <span class="ruby-identifier">instead</span>)
+          <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@@constraint_classes</span>[<span class="ruby-identifier">constraint</span>].<span class="ruby-identifier">new</span>(<span class="ruby-identifier">constraint</span>)
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-constant">MatcherConstraint</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">constraint</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">is_matcher?</span>(<span class="ruby-identifier">constraint</span>)
+        <span class="ruby-keyword kw">return</span> <span class="ruby-constant">RegexpArgConstraint</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">constraint</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">constraint</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Regexp</span>)
+        <span class="ruby-keyword kw">return</span> <span class="ruby-constant">LiteralArgConstraint</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">constraint</span>)
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

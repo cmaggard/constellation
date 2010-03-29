@@ -1,0 +1,5 @@
+<h1>Pickup Queue (<%= @tickets.size -%>)</h1>
+<p>
+  <% colors = ["#BFB", "#AFA", "#58DD58"]  -%>
+  <%= render :partial => "queue", :locals => { :queues => @tickets, :colors => colors } %>
+</p>

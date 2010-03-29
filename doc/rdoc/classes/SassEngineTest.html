@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: SassEngineTest</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">SassEngineTest</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/vendor/gems/haml-1_7_1/test/sass/engine_test_rb.html">
+                vendor/gems/haml-1.7.1/test/sass/engine_test.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                <a href="Test/Unit/TestCase.html">
+                Test::Unit::TestCase
+               </a>
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000088">test_alternate_styles</a>&nbsp;&nbsp;
+      <a href="#M000087">test_basic_render</a>&nbsp;&nbsp;
+      <a href="#M000092">test_empty_first_line</a>&nbsp;&nbsp;
+      <a href="#M000090">test_exception_line</a>&nbsp;&nbsp;
+      <a href="#M000089">test_exceptions</a>&nbsp;&nbsp;
+      <a href="#M000091">test_imported_exception</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">EXCEPTION_MAP</td>
+          <td>=</td>
+          <td class="context-item-value">{     &quot;!a = 1 + &quot; =&gt; 'Constant arithmetic error: &quot;1 +&quot;',     &quot;!a = 1 + 2 +&quot; =&gt; 'Constant arithmetic error: &quot;1 + 2 +&quot;',     &quot;!a = \&quot;b&quot; =&gt; 'Unterminated string: &quot;\\&quot;b&quot;',     &quot;!a = #aaa - a&quot; =&gt; 'Undefined operation: &quot;#aaaaaa minus a&quot;',     &quot;!a = #aaa / a&quot; =&gt; 'Undefined operation: &quot;#aaaaaa div a&quot;',     &quot;!a = #aaa * a&quot; =&gt; 'Undefined operation: &quot;#aaaaaa times a&quot;',     &quot;!a = #aaa % a&quot; =&gt; 'Undefined operation: &quot;#aaaaaa mod a&quot;',     &quot;!a = 1 - a&quot; =&gt; 'Undefined operation: &quot;1 minus a&quot;',     &quot;!a = 1 * a&quot; =&gt; 'Undefined operation: &quot;1 times a&quot;',     &quot;!a = 1 / a&quot; =&gt; 'Undefined operation: &quot;1 div a&quot;',     &quot;!a = 1 % a&quot; =&gt; 'Undefined operation: &quot;1 mod a&quot;',     &quot;:&quot; =&gt; 'Invalid attribute: &quot;:&quot;',     &quot;: a&quot; =&gt; 'Invalid attribute: &quot;: a&quot;',     &quot;:= a&quot; =&gt; 'Invalid attribute: &quot;:= a&quot;',     &quot;a\n  :b&quot; =&gt; 'Invalid attribute: &quot;:b &quot;',     &quot;a\n  :b: c&quot; =&gt; 'Invalid attribute: &quot;:b: c&quot;',     &quot;a\n  :b:c d&quot; =&gt; 'Invalid attribute: &quot;:b:c d&quot;',     &quot;a\n  :b=c d&quot; =&gt; 'Invalid attribute: &quot;:b=c d&quot;',     &quot;a\n  :b c;&quot; =&gt; 'Invalid attribute: &quot;:b c;&quot; (This isn\'t CSS!)',     &quot;a\n  b : c&quot; =&gt; 'Invalid attribute: &quot;b : c&quot;',     &quot;a\n  b=c: d&quot; =&gt; 'Invalid attribute: &quot;b=c: d&quot;',     &quot;:a&quot; =&gt; 'Attributes aren\'t allowed at the root of a document.',     &quot;!&quot; =&gt; 'Invalid constant: &quot;!&quot;',     &quot;!a&quot; =&gt; 'Invalid constant: &quot;!a&quot;',     &quot;! a&quot; =&gt; 'Invalid constant: &quot;! a&quot;',     &quot;!a b&quot; =&gt; 'Invalid constant: &quot;!a b&quot;',     &quot;a\n\t:b c&quot; =&gt; &quot;Illegal Indentation: Only two space characters are allowed as tabulation.&quot;,     &quot;a\n :b c&quot; =&gt; &quot;Illegal Indentation: Only two space characters are allowed as tabulation.&quot;,     &quot;a\n    :b c&quot; =&gt; &quot;Illegal Indentation: Only two space characters are allowed as tabulation.&quot;,     &quot;a\n  :b c\n  !d = 3&quot; =&gt; &quot;Constants may only be declared at the root of a document.&quot;,     &quot;!a = 1b + 2c&quot; =&gt; &quot;Incompatible units: b and c&quot;,     &quot;&amp; a\n  :b c&quot; =&gt; &quot;Base-level rules cannot contain the parent-selector-referencing character '&amp;'&quot;,     &quot;a\n  :b\n    c&quot; =&gt; &quot;Illegal nesting: Only attributes may be nested beneath attributes.&quot;,     &quot;!a = b\n  :c d\n&quot; =&gt; &quot;Illegal nesting: Nothing may be nested beneath constants.&quot;,     &quot;@import foo.sass&quot; =&gt; &quot;File to import not found or unreadable: foo.sass&quot;,     &quot;@import templates/basic\n  foo&quot; =&gt; &quot;Illegal nesting: Nothing may be nested beneath import directives.&quot;,     &quot;foo\n  @import templates/basic&quot; =&gt; &quot;Import directives may only be used at the root of a document.&quot;,     &quot;@foo    bar boom&quot; =&gt; &quot;Unknown compiler directive: \&quot;@foo bar boom\&quot;&quot;,   }</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000088" class="method-detail">
+        <a name="M000088"></a>
+
+        <div class="method-heading">
+          <a href="SassEngineTest.src/M000088.html" target="Code" class="method-signature"
+            onclick="popupCode('SassEngineTest.src/M000088.html');return false;">
+          <span class="method-name">test_alternate_styles</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000087" class="method-detail">
+        <a name="M000087"></a>
+
+        <div class="method-heading">
+          <a href="SassEngineTest.src/M000087.html" target="Code" class="method-signature"
+            onclick="popupCode('SassEngineTest.src/M000087.html');return false;">
+          <span class="method-name">test_basic_render</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000092" class="method-detail">
+        <a name="M000092"></a>
+
+        <div class="method-heading">
+          <a href="SassEngineTest.src/M000092.html" target="Code" class="method-signature"
+            onclick="popupCode('SassEngineTest.src/M000092.html');return false;">
+          <span class="method-name">test_empty_first_line</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000090" class="method-detail">
+        <a name="M000090"></a>
+
+        <div class="method-heading">
+          <a href="SassEngineTest.src/M000090.html" target="Code" class="method-signature"
+            onclick="popupCode('SassEngineTest.src/M000090.html');return false;">
+          <span class="method-name">test_exception_line</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000089" class="method-detail">
+        <a name="M000089"></a>
+
+        <div class="method-heading">
+          <a href="SassEngineTest.src/M000089.html" target="Code" class="method-signature"
+            onclick="popupCode('SassEngineTest.src/M000089.html');return false;">
+          <span class="method-name">test_exceptions</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000091" class="method-detail">
+        <a name="M000091"></a>
+
+        <div class="method-heading">
+          <a href="SassEngineTest.src/M000091.html" target="Code" class="method-signature"
+            onclick="popupCode('SassEngineTest.src/M000091.html');return false;">
+          <span class="method-name">test_imported_exception</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

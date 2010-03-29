@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>serial_link (ViewHelper)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File app/helpers/view_helper.rb, line 2</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">serial_link</span>(<span class="ruby-identifier">ticket</span>)
+    <span class="ruby-identifier">serial</span> = <span class="ruby-identifier">ticket</span>.<span class="ruby-identifier">unit</span>.<span class="ruby-identifier">serial_number</span>
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ticket</span>.<span class="ruby-identifier">unit</span>.<span class="ruby-identifier">manufacturer</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;Dell&quot;</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">link_to</span>(<span class="ruby-identifier">serial</span>, <span class="ruby-value str">&quot;http://support.dell.com/support/topics/global.aspx/support/my_systems_info/en/details?c=us&amp;amp;cs=19&amp;amp;l=en&amp;amp;s=dhs&amp;amp;ServiceTag=&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">serial</span>)
+    <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">ticket</span>.<span class="ruby-identifier">unit</span>.<span class="ruby-identifier">manufacturer</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;Apple&quot;</span>
+      <span class="ruby-comment cmt"># maybe do something with apple here later, but as of right now, it's impossible</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">serial</span>
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">serial</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

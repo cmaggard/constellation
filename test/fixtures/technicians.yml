@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+cody:
+  id: 1
+  initials: CRM
+  name: Cody Maggard
+  username: cmaggard
+  hashed_password:  
+  password_hash: 
+  admin: true 
+charles:
+  id: 2
+  initials: CD
+  name: Charles DuBose
+  username: cdubose
+  hashed_password:
+  password_hash:
+  admin: false

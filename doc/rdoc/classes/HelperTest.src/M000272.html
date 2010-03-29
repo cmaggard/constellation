@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_helpers_dont_leak (HelperTest)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/gems/haml-1.7.1/test/haml/helper_test.rb, line 52</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_helpers_dont_leak</span>
+    <span class="ruby-comment cmt"># Haml helpers shouldn't be accessible from ERB</span>
+    <span class="ruby-identifier">render</span>(<span class="ruby-value str">&quot;foo&quot;</span>)
+    <span class="ruby-identifier">proper_behavior</span> = <span class="ruby-keyword kw">false</span>
+
+    <span class="ruby-keyword kw">begin</span>
+      <span class="ruby-constant">ActionView</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">new</span>.<span class="ruby-identifier">render</span>(<span class="ruby-identifier">:inline</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;&lt;%= flatten('Foo\\nBar') %&gt;&quot;</span>)
+    <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">NoMethodError</span>
+      <span class="ruby-identifier">proper_behavior</span> = <span class="ruby-keyword kw">true</span>
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-identifier">assert</span>(<span class="ruby-identifier">proper_behavior</span>)
+
+    <span class="ruby-keyword kw">begin</span>
+      <span class="ruby-constant">ActionView</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">new</span>.<span class="ruby-identifier">render</span>(<span class="ruby-identifier">:inline</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;&lt;%= concat('foo') %&gt;&quot;</span>)
+    <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-constant">NameError</span>
+      <span class="ruby-identifier">proper_behavior</span> = <span class="ruby-keyword kw">true</span>
+    <span class="ruby-keyword kw">end</span>    
+    <span class="ruby-identifier">assert</span>(<span class="ruby-identifier">proper_behavior</span>)
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

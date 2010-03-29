@@ -1,0 +1,18 @@
+<% unless @customer.errors.empty? %>
+<%= error_messages_for "customer" %>
+<% end %>
+
+<h1>Step 1 - Select/Create Customer</h1>
+
+<p>
+  <div id="mainform">
+<% form_for :customer, @customer, :url => { :action => "edit_customer"}, :html => { :id => "custform" } do |f| %>
+<%= render :partial => 'customer_form', :locals => { :f => f } %>
+<% end %>
+  </div>
+  <%= observe_form(:custform, :frequency => 0.5, :update => "results", :url => { :action => "find_customer" } )%>
+</p>
+
+<p>
+<div id="results"></div>
+</p>

@@ -1,0 +1,19 @@
+<%unless @ticket.errors.empty? %>
+<%= error_messages_for "ticket" %>
+<% end %>
+
+<fieldset>
+  <legend>Close Ticket</legend>
+<% form_for :ticket, @ticket do |t| %>
+  <label>Services Performed:</label><br />
+  <%= t.text_area :services_performed, :cols => 30, :rows => 5 %><br />
+  <label>Parts: </label><%= t.text_field :parts, :size => 10 %><br />
+  <label>Labor: </label><%= t.text_field :labor, :size => 10 %><br />
+  <label>Quote Number: </label><%= t.text_field :quote_number, :size => 10 %><br />
+  <label>Apply Sales Tax: </label><%= t.check_box :taxable %><br />
+  <% fields_for :note, @note do |n| %>
+  <label>Technician: </label><%= technician_dropdown(n, session[:technician]) %>
+  <% end %>
+  <%= submit_tag "Close ticket" %>
+<% end %>
+</fieldset>

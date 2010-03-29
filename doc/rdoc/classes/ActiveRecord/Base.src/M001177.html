@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>search (ActiveRecord::Base)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/search.rb, line 48</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">search</span>(<span class="ruby-identifier">text</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">options</span> = {})
+      <span class="ruby-identifier">options</span>.<span class="ruby-identifier">assert_valid_keys</span>(<span class="ruby-identifier">:only</span>, <span class="ruby-identifier">:except</span>, <span class="ruby-identifier">:case</span>, <span class="ruby-identifier">:include</span>,
+                        <span class="ruby-identifier">:join_include</span>, <span class="ruby-identifier">:conditions</span>, <span class="ruby-identifier">:offset</span>, <span class="ruby-identifier">:limit</span>, <span class="ruby-identifier">:order</span>)
+      <span class="ruby-identifier">case_insensitive</span> = <span class="ruby-keyword kw">true</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:case</span>] <span class="ruby-operator">==</span> <span class="ruby-identifier">:sensitive</span>
+
+      <span class="ruby-comment cmt"># The fields to search (default is all text fields)</span>
+      <span class="ruby-identifier">fields</span> = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:only</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">searchable_fields</span>(<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:include</span>])
+      <span class="ruby-identifier">fields</span> <span class="ruby-operator">-=</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:except</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:except</span>].<span class="ruby-identifier">nil?</span>
+
+      <span class="ruby-comment cmt"># Now build the SQL for the search if there is text to search for</span>
+      <span class="ruby-identifier">condition_list</span> = []
+      <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">text</span>.<span class="ruby-identifier">nil?</span>
+        <span class="ruby-identifier">text_condition</span> = <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">case_insensitive</span>
+          <span class="ruby-identifier">fields</span>.<span class="ruby-identifier">collect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;UCASE(#{f}) LIKE #{sanitize('%'+text.upcase+'%')}&quot;</span> }.<span class="ruby-identifier">join</span> <span class="ruby-value str">&quot; OR &quot;</span> 
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">fields</span>.<span class="ruby-identifier">collect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;#{f} LIKE #{sanitize('%'+text+'%')}&quot;</span> }.<span class="ruby-identifier">join</span> <span class="ruby-value str">&quot; OR &quot;</span> 
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-comment cmt"># Add the text search term's SQL to the conditions string unless</span>
+        <span class="ruby-comment cmt"># the text was nil to begin with.</span>
+        <span class="ruby-identifier">condition_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;(&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">text_condition</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;)&quot;</span> 
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">condition_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{options[:conditions]}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:conditions</span>]
+      <span class="ruby-identifier">conditions</span> = <span class="ruby-identifier">condition_list</span>.<span class="ruby-identifier">join</span> <span class="ruby-value str">&quot; AND &quot;</span> 
+      <span class="ruby-identifier">conditions</span> = <span class="ruby-keyword kw">nil</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">conditions</span>.<span class="ruby-identifier">empty?</span>
+
+      <span class="ruby-identifier">includes</span> = (<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:include</span>] <span class="ruby-operator">||</span> []) <span class="ruby-operator">+</span> (<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:join_include</span>] <span class="ruby-operator">||</span> [])
+      <span class="ruby-identifier">includes</span> = <span class="ruby-keyword kw">nil</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">includes</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+
+      <span class="ruby-identifier">find</span> <span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:include</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">includes</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">conditions</span>,
+           <span class="ruby-identifier">:offset</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:offset</span>], <span class="ruby-identifier">:limit</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:limit</span>], <span class="ruby-identifier">:order</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:order</span>]
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

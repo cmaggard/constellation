@@ -1,0 +1,20 @@
+	<table>
+	  <tr>
+		<td>Serial: </td><td><%= f.text_field :serial_number, :size => 20 %></td>
+	  </tr>
+	  <tr>
+        <td>Make: </td><td><%= f.select :manufacturer_id, Manufacturer.find_all.collect { |m| [ m.name, m.id ] } %></td>
+      </tr>
+      <tr>
+        <td>Model: </td><td><%= f.select :type_id, Type.find_all.collect { |t| [ t.name, t.id ] } %></td>
+      </tr>
+      <tr>
+        <td colspan="2">Description: </td>
+      </tr>
+      <tr>
+	    <td colspan="2"><%= f.text_area :description, "cols" => 17, "rows" => 3 %>
+	  </tr>
+	  <tr>
+		<td colspan="2" align="center"><%= submit_tag "Save and continue" %></td>
+	  </tr>
+    </table>

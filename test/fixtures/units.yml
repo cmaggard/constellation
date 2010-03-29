@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+dell_desktop:
+  id: 1
+  serial_number: KYG1HF3
+  manufacturer_id: 1
+  type_id: 1
+  customer_id: 1
+  description: 
+apple_laptop:
+  id: 2
+  serial_number: ARNOLD1
+  manufacturer_id: 2
+  type_id: 2
+  customer_id: 2
+  description: 

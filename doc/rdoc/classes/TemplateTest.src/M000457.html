@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>setup (TemplateTest)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/gems/haml-1.7.1/test/haml/template_test.rb, line 29</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">setup</span>
+    <span class="ruby-constant">ActionView</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">register_template_handler</span>(<span class="ruby-value str">&quot;haml&quot;</span>, <span class="ruby-constant">Haml</span><span class="ruby-operator">::</span><span class="ruby-constant">Template</span>)
+    <span class="ruby-constant">Haml</span><span class="ruby-operator">::</span><span class="ruby-constant">Template</span>.<span class="ruby-identifier">options</span> = { <span class="ruby-identifier">:filters</span> =<span class="ruby-operator">&gt;</span> { <span class="ruby-value str">'test'</span>=<span class="ruby-operator">&gt;</span><span class="ruby-constant">TestFilter</span> } }
+    <span class="ruby-ivar">@base</span> = <span class="ruby-constant">ActionView</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword kw">__FILE__</span>) <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;/templates/&quot;</span>, {<span class="ruby-value str">'article'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Article</span>.<span class="ruby-identifier">new</span>, <span class="ruby-value str">'foo'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'value one'</span>})
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

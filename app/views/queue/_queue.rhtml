@@ -1,0 +1,16 @@
+  <table cellpadding='5' border='0' cellspacing='0' class='queue'>
+    <thead>
+      <tr bgcolor='<%= colors[2] %>'>
+        <td class='id'>Ticket</td>
+        <td class='name'>Customer Name</td>
+        <td class='comp'>Unit Type</td>
+        <td class='date'>Check-In Date</td>
+        <td class='claim'>Claimed By</td>
+      </tr>
+    </thead>
+    <% style = 1 -%>
+    <% queues.each do |queue| -%>
+    <% style = 1 - style -%>
+    <%= render :partial => "queueline", :locals => { :queue => queue, :color => colors[style] } %>
+    <% end -%>
+  </table>

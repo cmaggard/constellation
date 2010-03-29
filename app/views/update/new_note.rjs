@@ -1,0 +1,2 @@
+page.insert_html :top, 'notes', :partial => "note", :locals => { :note => @note }
+page.visual_effect :highlight, 'note' + @note.id.to_s

@@ -1,0 +1,17 @@
+  <strong>Completed At:</strong>
+  <%= time_formatter(@ticket.completed_at) -%><br />
+
+  <strong>Services Performed:</strong>
+  <%= @ticket.services_performed %><br />
+
+  <strong>Parts:</strong>
+  <%= number_to_currency @ticket.parts %><br />
+
+  <strong>Labor:</strong>
+  <%= number_to_currency @ticket.labor %><br />
+
+  <strong>Total:</strong>
+  <%= total(@ticket) %><br />
+
+  <strong>Quote #:</strong>
+  <%= @ticket.quote_number %><br />

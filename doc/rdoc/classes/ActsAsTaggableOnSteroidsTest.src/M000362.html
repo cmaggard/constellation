@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_change_case_of_tags (ActsAsTaggableOnSteroidsTest)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/plugins/acts_as_taggable_on_steroids/test/acts_as_taggable_test.rb, line 186</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_change_case_of_tags</span>
+    <span class="ruby-identifier">original_tag_names</span> = <span class="ruby-identifier">photos</span>(<span class="ruby-identifier">:jonathan_questioning_dog</span>).<span class="ruby-identifier">tag_list</span>
+    <span class="ruby-identifier">photos</span>(<span class="ruby-identifier">:jonathan_questioning_dog</span>).<span class="ruby-identifier">update_attributes!</span>(<span class="ruby-identifier">:tag_list</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">photos</span>(<span class="ruby-identifier">:jonathan_questioning_dog</span>).<span class="ruby-identifier">tag_list</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">upcase</span>)
+    
+    <span class="ruby-comment cmt"># The new tag list is not uppercase becuase the AR finders are not case-sensitive</span>
+    <span class="ruby-comment cmt"># and find the old tags when re-tagging with the uppercase tags.</span>
+    <span class="ruby-identifier">assert_equivalent</span> <span class="ruby-identifier">original_tag_names</span>, <span class="ruby-identifier">photos</span>(<span class="ruby-identifier">:jonathan_questioning_dog</span>).<span class="ruby-identifier">reload</span>.<span class="ruby-identifier">tag_list</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>weave_in_included_modules (Spec::DSL::Behaviour)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/dsl/behaviour.rb, line 154</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">weave_in_included_modules</span>
+        <span class="ruby-identifier">mods</span> = [<span class="ruby-ivar">@eval_module</span>]
+        <span class="ruby-identifier">mods</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">included_modules</span>.<span class="ruby-identifier">dup</span>
+        <span class="ruby-identifier">mods</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Spec</span><span class="ruby-operator">::</span><span class="ruby-constant">Runner</span>.<span class="ruby-identifier">configuration</span>.<span class="ruby-identifier">modules_for</span>(<span class="ruby-identifier">behaviour_type</span>)
+        <span class="ruby-identifier">execution_context_class</span>.<span class="ruby-identifier">class_eval</span> <span class="ruby-keyword kw">do</span>
+          <span class="ruby-comment cmt"># WARNING - the following can be executed in the context of any</span>
+          <span class="ruby-comment cmt"># class, and should never pass more than one module to include</span>
+          <span class="ruby-comment cmt"># even though we redefine include in this class. This is NOT</span>
+          <span class="ruby-comment cmt"># tested anywhere, hence this comment.</span>
+          <span class="ruby-identifier">mods</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">mod</span><span class="ruby-operator">|</span> <span class="ruby-identifier">include</span> <span class="ruby-identifier">mod</span>}
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

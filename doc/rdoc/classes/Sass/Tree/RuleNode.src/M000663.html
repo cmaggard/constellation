@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>to_s (Sass::Tree::RuleNode)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/gems/haml-1.7.1/lib/sass/tree/rule_node.rb, line 12</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>(<span class="ruby-identifier">tabs</span>, <span class="ruby-identifier">super_rules</span> = <span class="ruby-keyword kw">nil</span>)
+      <span class="ruby-identifier">attributes</span> = []
+      <span class="ruby-identifier">sub_rules</span> = []
+      <span class="ruby-identifier">total_rule</span> = <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">super_rules</span>
+        <span class="ruby-identifier">super_rules</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">/,\s*/</span>).<span class="ruby-identifier">collect!</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span>
+          <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">rule</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">/,\s*/</span>).<span class="ruby-identifier">collect</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span>
+            <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">r</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-constant">PARENT</span>)
+              <span class="ruby-identifier">r</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-constant">PARENT</span>, <span class="ruby-identifier">s</span>)
+            <span class="ruby-keyword kw">else</span>
+              <span class="ruby-node">&quot;#{s} #{r}&quot;</span>
+            <span class="ruby-keyword kw">end</span>
+          <span class="ruby-keyword kw">end</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;, &quot;</span>)
+        <span class="ruby-keyword kw">end</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;, &quot;</span>)
+      <span class="ruby-keyword kw">elsif</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">rule</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-constant">PARENT</span>)
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">SyntaxError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;Base-level rules cannot contain the parent-selector-referencing character '#{PARENT}'&quot;</span>, <span class="ruby-identifier">line</span>)
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">rule</span>
+      <span class="ruby-keyword kw">end</span>
+      
+      <span class="ruby-identifier">children</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">child</span><span class="ruby-operator">|</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">child</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">RuleNode</span>
+          <span class="ruby-identifier">sub_rules</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">child</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">attributes</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">child</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+      
+      <span class="ruby-identifier">to_return</span> = <span class="ruby-value str">''</span>
+      <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">empty?</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@style</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:compact</span>
+          <span class="ruby-identifier">to_return</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{total_rule} { #{attributes.join(' ')} }\n&quot;</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">spaces</span> = (<span class="ruby-ivar">@style</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:expanded</span> <span class="ruby-operator">?</span> <span class="ruby-value">2</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">tabs</span> <span class="ruby-operator">*</span> <span class="ruby-value">2</span>)
+          <span class="ruby-identifier">old_spaces</span> = <span class="ruby-value str">' '</span> <span class="ruby-operator">*</span> (<span class="ruby-identifier">spaces</span> <span class="ruby-operator">-</span> <span class="ruby-value">2</span>)
+          <span class="ruby-identifier">spaces</span> = <span class="ruby-value str">' '</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">spaces</span>
+
+          <span class="ruby-identifier">attributes</span> = <span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>).<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">&quot;\n&quot;</span>, <span class="ruby-node">&quot;\n#{spaces}&quot;</span>).<span class="ruby-identifier">rstrip</span>
+          <span class="ruby-identifier">end_attrs</span> = (<span class="ruby-ivar">@style</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:expanded</span> <span class="ruby-operator">?</span> <span class="ruby-value str">&quot;\n&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-value str">' '</span>)
+          <span class="ruby-identifier">to_return</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{old_spaces}#{total_rule} {\n#{spaces}#{attributes}#{end_attrs}}\n&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+      
+      <span class="ruby-identifier">tabs</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-identifier">sub_rules</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">sub</span><span class="ruby-operator">|</span> <span class="ruby-identifier">to_return</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">sub</span>.<span class="ruby-identifier">to_s</span>(<span class="ruby-identifier">tabs</span>, <span class="ruby-identifier">total_rule</span>) }
+      <span class="ruby-identifier">to_return</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

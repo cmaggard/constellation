@@ -1,0 +1,17 @@
+<table>
+  <tr>
+    <td>Checked in by:</td>
+    <td><%= technician_dropdown(n, session[:technician]) %></td>
+  </tr>
+  <tr>
+    <td>Problem Description:</td>
+    <td colspan="2"><%= t.text_area :problem, :rows => "5", :cols => "40" %></td>
+  </tr>
+  <tr><td/><td><%= t.check_box :priority %>Priority!</td></tr>
+  <tr><td colspan="2" align="center"><b>Accessories</b></td></tr>
+  <tr><td/><td><%= t.check_box :power_cord %>Power Cord</td></tr>
+  <tr><td/><td><%= t.check_box :bag %>Bag</td></tr>
+  <tr><td/><td><%= t.check_box :discs %>Discs</td></tr>
+  <tr><td align="right">Misc Accy</td><td><%= t.text_field :misc_accessories %></td></tr>
+  <tr><td colspan="2" align="center"><%= submit_tag "Create Ticket", :disable_with => "Creating..." %></td></tr>
+</table>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_attrs_parsed_correctly (EngineTest)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/gems/haml-1.7.1/test/haml/engine_test.rb, line 94</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_attrs_parsed_correctly</span>
+    <span class="ruby-identifier">assert_equal</span>(<span class="ruby-value str">&quot;&lt;p boom=&gt;biddly='bar =&gt; baz'&gt;\n&lt;/p&gt;\n&quot;</span>, <span class="ruby-identifier">render</span>(<span class="ruby-value str">&quot;%p{'boom=&gt;biddly' =&gt; 'bar =&gt; baz'}&quot;</span>))
+    <span class="ruby-identifier">assert_equal</span>(<span class="ruby-value str">&quot;&lt;p foo,bar='baz, qux'&gt;\n&lt;/p&gt;\n&quot;</span>, <span class="ruby-identifier">render</span>(<span class="ruby-value str">&quot;%p{'foo,bar' =&gt; 'baz, qux'}&quot;</span>))
+    <span class="ruby-identifier">assert_equal</span>(<span class="ruby-value str">&quot;&lt;p escaped='quo\nte'&gt;\n&lt;/p&gt;\n&quot;</span>, <span class="ruby-identifier">render</span>(<span class="ruby-value str">&quot;%p{ :escaped =&gt; \&quot;quo\\nte\&quot;}&quot;</span>))
+    <span class="ruby-identifier">assert_equal</span>(<span class="ruby-value str">&quot;&lt;p escaped='quo4te'&gt;\n&lt;/p&gt;\n&quot;</span>, <span class="ruby-identifier">render</span>(<span class="ruby-value str">&quot;%p{ :escaped =&gt; \&quot;quo\#{2 + 2}te\&quot;}&quot;</span>))
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

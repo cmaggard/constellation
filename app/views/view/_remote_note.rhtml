@@ -1,0 +1,10 @@
+<% remote_form_for :note, @note, :url => { :controller => 'update', 
+                                           :action => :note, 
+                                           :id => @ticket.id }, 
+                                 :id => "noteform" do |n| %>
+  <fieldset class="doNotPrint">
+    <label>Note:</label><%= n.text_field :note %>
+    <label>Tech:</label><%= technician_dropdown(n, session[:technician]) %>
+    <%= submit_tag "Add Note" %>
+  </fieldset>
+<% end %>

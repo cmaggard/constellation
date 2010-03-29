@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>manifest (RspecScaffoldGenerator)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/plugins/rspec_on_rails/generators/rspec_scaffold/rspec_scaffold_generator.rb, line 43</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">manifest</span>
+    <span class="ruby-identifier">record</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span>
+      
+      <span class="ruby-comment cmt"># Check for class naming collisions.</span>
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">class_collisions</span>(<span class="ruby-identifier">controller_class_path</span>, <span class="ruby-node">&quot;#{controller_class_name}Controller&quot;</span>, <span class="ruby-node">&quot;#{controller_class_name}Helper&quot;</span>)
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">class_collisions</span>(<span class="ruby-identifier">class_path</span>, <span class="ruby-node">&quot;#{class_name}&quot;</span>)
+
+      <span class="ruby-comment cmt"># Controller, helper, views, and spec directories.</span>
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">directory</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'app/models'</span>, <span class="ruby-identifier">class_path</span>))
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">directory</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'app/controllers'</span>, <span class="ruby-identifier">controller_class_path</span>))
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">directory</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'app/helpers'</span>, <span class="ruby-identifier">controller_class_path</span>))
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">directory</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'app/views'</span>, <span class="ruby-identifier">controller_class_path</span>, <span class="ruby-identifier">controller_file_name</span>))
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">directory</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'spec/controllers'</span>, <span class="ruby-identifier">controller_class_path</span>))
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">directory</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'spec/models'</span>, <span class="ruby-identifier">class_path</span>))
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">directory</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'spec/helpers'</span>, <span class="ruby-identifier">class_path</span>))
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">directory</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'spec/fixtures'</span>, <span class="ruby-identifier">class_path</span>)
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">directory</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'spec/views'</span>, <span class="ruby-identifier">controller_class_path</span>, <span class="ruby-identifier">controller_file_name</span>)
+      
+      <span class="ruby-comment cmt"># Controller spec, class, and helper.</span>
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">template</span> <span class="ruby-value str">'rspec_scaffold:controller_spec.rb'</span>,
+        <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'spec/controllers'</span>, <span class="ruby-identifier">controller_class_path</span>, <span class="ruby-node">&quot;#{controller_file_name}_controller_spec.rb&quot;</span>)
+
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">template</span> <span class="ruby-node">&quot;#{@resource_generator}:controller.rb&quot;</span>,
+        <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'app/controllers'</span>, <span class="ruby-identifier">controller_class_path</span>, <span class="ruby-node">&quot;#{controller_file_name}_controller.rb&quot;</span>)
+
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">template</span> <span class="ruby-value str">'rspec_scaffold:helper_spec.rb'</span>,
+        <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'spec/helpers'</span>, <span class="ruby-identifier">class_path</span>, <span class="ruby-node">&quot;#{controller_file_name}_helper_spec.rb&quot;</span>)
+
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">template</span> <span class="ruby-node">&quot;#{@resource_generator}:helper.rb&quot;</span>,
+        <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'app/helpers'</span>, <span class="ruby-identifier">controller_class_path</span>, <span class="ruby-node">&quot;#{controller_file_name}_helper.rb&quot;</span>)
+
+      <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">action</span> <span class="ruby-keyword kw">in</span> <span class="ruby-identifier">scaffold_views</span>
+        <span class="ruby-identifier">m</span>.<span class="ruby-identifier">template</span>(
+          <span class="ruby-node">&quot;#{@resource_generator}:view_#{action}.#{@default_file_extension}&quot;</span>,
+          <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'app/views'</span>, <span class="ruby-identifier">controller_class_path</span>, <span class="ruby-identifier">controller_file_name</span>, <span class="ruby-node">&quot;#{action}.#{default_file_extension}&quot;</span>)
+        )
+      <span class="ruby-keyword kw">end</span>
+      
+      <span class="ruby-comment cmt"># Model class, unit test, and fixtures.</span>
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">template</span> <span class="ruby-value str">'model:model.rb'</span>,      <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'app/models'</span>, <span class="ruby-identifier">class_path</span>, <span class="ruby-node">&quot;#{file_name}.rb&quot;</span>)
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">template</span> <span class="ruby-value str">'model:fixtures.yml'</span>,  <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'spec/fixtures'</span>, <span class="ruby-identifier">class_path</span>, <span class="ruby-node">&quot;#{table_name}.yml&quot;</span>)
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">template</span> <span class="ruby-value str">'rspec_model:model_spec.rb'</span>,       <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'spec/models'</span>, <span class="ruby-identifier">class_path</span>, <span class="ruby-node">&quot;#{file_name}_spec.rb&quot;</span>)
+
+      <span class="ruby-comment cmt"># View specs</span>
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">template</span> <span class="ruby-value str">&quot;rspec_scaffold:edit_erb_spec.rb&quot;</span>,
+        <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'spec/views'</span>, <span class="ruby-identifier">controller_class_path</span>, <span class="ruby-identifier">controller_file_name</span>, <span class="ruby-node">&quot;edit.#{default_file_extension}_spec.rb&quot;</span>)
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">template</span> <span class="ruby-value str">&quot;rspec_scaffold:index_erb_spec.rb&quot;</span>,
+        <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'spec/views'</span>, <span class="ruby-identifier">controller_class_path</span>, <span class="ruby-identifier">controller_file_name</span>, <span class="ruby-node">&quot;index.#{default_file_extension}_spec.rb&quot;</span>)
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">template</span> <span class="ruby-value str">&quot;rspec_scaffold:new_erb_spec.rb&quot;</span>,
+        <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'spec/views'</span>, <span class="ruby-identifier">controller_class_path</span>, <span class="ruby-identifier">controller_file_name</span>, <span class="ruby-node">&quot;new.#{default_file_extension}_spec.rb&quot;</span>)
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">template</span> <span class="ruby-value str">&quot;rspec_scaffold:show_erb_spec.rb&quot;</span>,
+        <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'spec/views'</span>, <span class="ruby-identifier">controller_class_path</span>, <span class="ruby-identifier">controller_file_name</span>, <span class="ruby-node">&quot;show.#{default_file_extension}_spec.rb&quot;</span>)
+
+      <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:skip_migration</span>]
+        <span class="ruby-identifier">m</span>.<span class="ruby-identifier">migration_template</span>(
+          <span class="ruby-value str">'model:migration.rb'</span>, <span class="ruby-value str">'db/migrate'</span>, 
+          <span class="ruby-identifier">:assigns</span> =<span class="ruby-operator">&gt;</span> {
+            <span class="ruby-identifier">:migration_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;Create#{class_name.pluralize.gsub(/::/, '')}&quot;</span>,
+            <span class="ruby-identifier">:attributes</span>     =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">attributes</span>
+          }, 
+          <span class="ruby-identifier">:migration_file_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;create_#{file_path.gsub(/\//, '_').pluralize}&quot;</span>
+        )
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">route_resources</span> <span class="ruby-identifier">controller_file_name</span>
+
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

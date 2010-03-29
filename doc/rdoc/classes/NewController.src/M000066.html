@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>find_unit (NewController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File app/controllers/new_controller.rb, line 48</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_unit</span>
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>]
+      <span class="ruby-identifier">session</span>[<span class="ruby-identifier">:unit</span>] = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>].<span class="ruby-identifier">to_i</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:new_ticket</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span>
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-identifier">session</span>[<span class="ruby-identifier">:unit</span>] = <span class="ruby-keyword kw">nil</span>
+      <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">wants</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">wants</span>.<span class="ruby-identifier">html</span> <span class="ruby-keyword kw">do</span>
+          <span class="ruby-ivar">@custunits</span> = <span class="ruby-constant">Customer</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">session</span>[<span class="ruby-identifier">:customer</span>]).<span class="ruby-identifier">units</span>
+          <span class="ruby-ivar">@unit</span> = <span class="ruby-constant">Unit</span>.<span class="ruby-identifier">new</span>
+        <span class="ruby-keyword kw">end</span> <span class="ruby-comment cmt"># wants.html</span>
+        <span class="ruby-identifier">wants</span>.<span class="ruby-identifier">js</span> <span class="ruby-keyword kw">do</span>
+          <span class="ruby-ivar">@serial</span> = (<span class="ruby-identifier">request</span>.<span class="ruby-identifier">raw_post</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">query_string</span>).<span class="ruby-identifier">strip</span>.<span class="ruby-identifier">upcase</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@serial</span>.<span class="ruby-identifier">empty?</span> 
+            <span class="ruby-identifier">render_text</span> <span class="ruby-value str">&quot;&quot;</span>
+            <span class="ruby-keyword kw">return</span>
+          <span class="ruby-keyword kw">end</span> <span class="ruby-comment cmt"># @serial.empty?</span>
+          <span class="ruby-ivar">@serial</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;%&quot;</span>
+          <span class="ruby-ivar">@units</span> = <span class="ruby-constant">Unit</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> [ <span class="ruby-value str">&quot;serial_number LIKE ?&quot;</span>, <span class="ruby-ivar">@serial</span>], <span class="ruby-identifier">:limit</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">10</span>)
+          <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@units</span>.<span class="ruby-identifier">nil?</span> 
+            <span class="ruby-identifier">render_text</span> <span class="ruby-value str">&quot;No units found.&quot;</span>
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-identifier">render</span> <span class="ruby-identifier">:partial</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;unit&quot;</span>, <span class="ruby-identifier">:collection</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@units</span>
+          <span class="ruby-keyword kw">end</span> <span class="ruby-comment cmt"># units.nil?</span>
+        <span class="ruby-keyword kw">end</span> <span class="ruby-comment cmt"># wants.js</span>
+      <span class="ruby-keyword kw">end</span> <span class="ruby-comment cmt"># respond_to</span>
+    <span class="ruby-keyword kw">end</span> <span class="ruby-comment cmt"># if params[:id]</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

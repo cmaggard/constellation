@@ -1,0 +1,25 @@
+<% %w{ unread read all }.each do |action|  %>
+<%= link_to_unless_current action.capitalize, :controller => "tekmail", :action => action %>
+<% end %>
+<br />
+<table cellpadding="5">
+  <tr>
+    <th>ID</th>
+    <th>Sender</th>
+    <th>Message</th>
+    <th>Sent At</th>
+  </tr>
+<% @messages.each do |message| -%>
+  <tr>
+    <td><%= message.id -%></td>
+    <td><%= message.sender.name -%></td>
+    <td><%= link_to truncate(message.message,40), :action => :view, :id => message.id -%></td>
+    <td><%= time_formatter(message.created_at) -%></td>
+  </tr>
+<% end -%>
+  <tr>
+    <td colspan="4"><div align="center"><%= pagination_links (@message_pages) -%></div></td>
+  </tr>
+</table>
+
+<%= link_to "Can't wait?  Send a message now!", :action => :send_message %>

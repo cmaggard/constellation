@@ -1,0 +1,11 @@
+<% unless @counterwork.errors.empty? %>
+<%= error_messages_for "counterwork" %>
+<% end %>
+
+<h1>New Counter Work</h1>
+<% form_for :counterwork, @counterwork do |f| %>
+    Technican: <%= technician_dropdown f, session[:technician] %><br />
+    Counter work done: <br />
+    <%= f.text_area :description, :rows => "5" %><br />
+    <%= submit_tag "No pro bono for boning a pro!" %>
+<% end %>

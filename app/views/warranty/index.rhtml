@@ -1,0 +1,35 @@
+<% %w{outstanding_orders previous_orders all_orders}.each do |action| %>
+  <%= link_to_unless_current action.humanize, :controller => 'warranty', :action => action %>
+<% end %>
+<br />
+
+<table cellpadding='5'>
+    <tr>
+        <th>Part ID</th>
+        <th>Ticket #</th>
+        <th>Ordered By</th>
+        <th>Status</th>
+        <th>Requested At</th>
+        <th>Ordered At</th>
+        <th>Shipped At</th>
+        <th>Received At</th>
+        <th>Tracking</th>
+    </tr>
+<% grey = 0 -%>
+<% @parts.each do |part| -%>
+<% grey = 1 - grey -%>
+    <tr>
+        <td><%= part.id -%></td>
+        <td><%= part.ticket.id -%></td>
+        <td><%= part.ordered_by.name -%></td>
+        <td><%= part.status -%></td>
+        <td><%= part.requested_at -%></td>
+        <td><%= part.ordered_at -%></td>
+        <td><%= part.shipped_at -%></td>
+        <td><%= part.received_at -%></td>
+        <td><%= part.tracking_number -%></td>
+    </tr>
+<% end -%>
+</table>
+            
+                

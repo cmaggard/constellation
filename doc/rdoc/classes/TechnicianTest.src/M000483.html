@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_provided_username (TechnicianTest)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/unit/technician_test.rb, line 7</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_provided_username</span>
+    <span class="ruby-identifier">tek</span> = <span class="ruby-constant">Technician</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-identifier">tek</span>.<span class="ruby-identifier">name</span> = <span class="ruby-value str">&quot;Alan Albrecht&quot;</span>
+    <span class="ruby-identifier">tek</span>.<span class="ruby-identifier">initials</span> = <span class="ruby-value str">&quot;AA&quot;</span>
+    <span class="ruby-identifier">tek</span>.<span class="ruby-identifier">username</span> = <span class="ruby-value str">&quot;blargh&quot;</span>
+    <span class="ruby-identifier">tek</span>.<span class="ruby-identifier">save</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value str">&quot;blargh&quot;</span>, <span class="ruby-identifier">tek</span>.<span class="ruby-identifier">username</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

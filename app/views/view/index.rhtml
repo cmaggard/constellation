@@ -1,0 +1,38 @@
+<h1>Service Ticket <%= @ticket.id %></h1>
+
+<div style="float:right; margin: 20px 0px" class="doNotPrint">
+	<%= render :partial => 'action_buttons' %>
+</div>
+
+<p>
+  <strong>Customer Name:</strong> <%= @ticket.customer.first_last_name %><br />
+  
+  <strong>Phone Number:</strong> <%= @ticket.customer.phone_number %><br />
+  
+  <strong>Computer:</strong> <%= @ticket.unit.manufacturer_type %><br />
+      
+  <strong>Serial:</strong> <%= serial_link(@ticket) %><br />
+
+  <strong>Problem:</strong> <%= @ticket.problem %><br />
+
+  <strong>Accessories:</strong> <%= render :partial => "accessories", :locals => { :ticket => @ticket } %><br />
+
+  <strong>Checked In By:</strong> <%= checked_by_when(@ticket) %><br />
+
+  <strong>Claimed By:</strong> <%= claimer(@ticket) %><br />
+
+  <%= render :partial => 'closed_fields' if @ticket.closed? %>
+  
+  <% unless @ticket.picked_up.nil? %>
+  <strong>Picked up at:</strong>
+  <%= time_formatter(@ticket.picked_up) %><br />
+  <% end %>
+</p>
+  
+<%= render :partial => 'disclaimer' %>
+
+<%= render :partial => 'remote_note' %>
+  
+<div id="notediv" class="doNotPrint">
+  <%= render :partial => 'update/notes', :locals => { :notes => @notes } %>
+</div>

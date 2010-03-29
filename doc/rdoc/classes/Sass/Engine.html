@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Sass::Engine</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Sass::Engine</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/vendor/gems/haml-1_7_1/lib/sass/engine_rb.html">
+                vendor/gems/haml-1.7.1/lib/sass/engine.rb
+                </a>
+        <br />
+                <a href="../../files/vendor/gems/haml-1_7_1/test/sass/plugin_test_rb.html">
+                vendor/gems/haml-1.7.1/test/sass/plugin_test.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+This is the class where all the parsing and processing of the <a
+href="../Sass.html">Sass</a> template is done. It can be directly used by
+the user by creating a <a href="Engine.html#M000677">new</a> instance and
+calling <tt><a href="Engine.html#M000678">render</a></tt> to <a
+href="Engine.html#M000678">render</a> the template. For example:
+</p>
+<pre>
+  template = File.load('stylesheets/sassy.sass')
+  sass_engine = Sass::Engine.new(template)
+  output = sass_engine.render
+  puts output
+</pre>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000680">constants</a>&nbsp;&nbsp;
+      <a href="#M000677">new</a>&nbsp;&nbsp;
+      <a href="#M000682">old_render</a>&nbsp;&nbsp;
+      <a href="#M000678">render</a>&nbsp;&nbsp;
+      <a href="#M000683">render</a>&nbsp;&nbsp;
+      <a href="#M000681">render_to_tree</a>&nbsp;&nbsp;
+      <a href="#M000679">to_css</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">ATTRIBUTE_CHAR</td>
+          <td>=</td>
+          <td class="context-item-value">?:</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+The character that begins a <a href="CSS.html">CSS</a> attribute.
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">SCRIPT_CHAR</td>
+          <td>=</td>
+          <td class="context-item-value">?=</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+The character that designates that an attribute should be assigned to the
+result of constant arithmetic.
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">COMMENT_CHAR</td>
+          <td>=</td>
+          <td class="context-item-value">?/</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+The character that designates the beginning of a comment, either <a
+href="../Sass.html">Sass</a> or <a href="CSS.html">CSS</a>.
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">SASS_COMMENT_CHAR</td>
+          <td>=</td>
+          <td class="context-item-value">?/</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+The character that follows the general COMMENT_CHAR and designates a <a
+href="../Sass.html">Sass</a> comment, which is not output as a <a
+href="CSS.html">CSS</a> comment.
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">CSS_COMMENT_CHAR</td>
+          <td>=</td>
+          <td class="context-item-value">?*</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+The character that follows the general COMMENT_CHAR and designates a <a
+href="CSS.html">CSS</a> comment, which is embedded in the <a
+href="CSS.html">CSS</a> document.
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">DIRECTIVE_CHAR</td>
+          <td>=</td>
+          <td class="context-item-value">?@</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+The character used to denote a compiler directive.
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">ATTRIBUTE</td>
+          <td>=</td>
+          <td class="context-item-value">/^:([^\s=:]+)\s*(=?)(?:\s+|$)(.*)/</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+The regex that matches and extracts data from attributes of the form
+<tt>:name attr</tt>.
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">ATTRIBUTE_ALTERNATE_MATCHER</td>
+          <td>=</td>
+          <td class="context-item-value">/^[^\s:]+\s*[=:](\s|$)/</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+The regex that matches attributes of the form <tt>name: attr</tt>.
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">ATTRIBUTE_ALTERNATE</td>
+          <td>=</td>
+          <td class="context-item-value">/^([^\s=:]+)(\s*=|:)(?:\s+|$)(.*)/</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+The regex that matches and extracts data from attributes of the form
+<tt>name: attr</tt>.
+
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000677" class="method-detail">
+        <a name="M000677"></a>
+
+        <div class="method-heading">
+          <a href="Engine.src/M000677.html" target="Code" class="method-signature"
+            onclick="popupCode('Engine.src/M000677.html');return false;">
+          <span class="method-name">new</span><span class="method-args">(template, options={})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Creates a <a href="Engine.html#M000677">new</a> instace of <a
+href="Engine.html">Sass::Engine</a> that will compile the given template
+string when <tt><a href="Engine.html#M000678">render</a></tt> is called.
+See README for available options.
+</p>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000682" class="method-detail">
+        <a name="M000682"></a>
+
+        <div class="method-heading">
+          <span class="method-name">old_render</span><span class="method-args">()</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Engine.html#M000678">render</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000678" class="method-detail">
+        <a name="M000678"></a>
+
+        <div class="method-heading">
+          <a href="Engine.src/M000678.html" target="Code" class="method-signature"
+            onclick="popupCode('Engine.src/M000678.html');return false;">
+          <span class="method-name">render</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Processes the template and returns the result as a string.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000683" class="method-detail">
+        <a name="M000683"></a>
+
+        <div class="method-heading">
+          <a href="Engine.src/M000683.html" target="Code" class="method-signature"
+            onclick="popupCode('Engine.src/M000683.html');return false;">
+          <span class="method-name">render</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000679" class="method-detail">
+        <a name="M000679"></a>
+
+        <div class="method-heading">
+          <span class="method-name">to_css</span><span class="method-args">()</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Engine.html#M000678">render</a>
+</p>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Protected Instance methods</h3>
+
+      <div id="method-M000680" class="method-detail">
+        <a name="M000680"></a>
+
+        <div class="method-heading">
+          <a href="Engine.src/M000680.html" target="Code" class="method-signature"
+            onclick="popupCode('Engine.src/M000680.html');return false;">
+          <span class="method-name">constants</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000681" class="method-detail">
+        <a name="M000681"></a>
+
+        <div class="method-heading">
+          <a href="Engine.src/M000681.html" target="Code" class="method-signature"
+            onclick="popupCode('Engine.src/M000681.html');return false;">
+          <span class="method-name">render_to_tree</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

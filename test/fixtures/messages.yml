@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+from_cody_to_charles:
+  id: 1
+  message: This is kinda messed up here
+  created_at: <%= 10.minutes.ago.to_s(:db) %>
+  sender_id: 1
+  receiver_id: 2
+  opened: 0
+from_charles_to_cody:
+  id: 2
+  message: This Bud's for you
+  created_at: <%= 5.minutes.ago.to_s(:db) %>
+  sender_id: 2
+  receiver_id: 1
+  opened: 0

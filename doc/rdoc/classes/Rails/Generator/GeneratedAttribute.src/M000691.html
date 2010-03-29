@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>default_value (Rails::Generator::GeneratedAttribute)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/plugins/rspec_on_rails/generators/rspec_scaffold/rspec_scaffold_generator.rb, line 137</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">default_value</span>
+        <span class="ruby-ivar">@default_value</span> <span class="ruby-operator">||=</span> <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">type</span>
+          <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:int</span>, <span class="ruby-identifier">:integer</span>               <span class="ruby-keyword kw">then</span> <span class="ruby-value str">&quot;\&quot;1\&quot;&quot;</span>
+          <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:float</span>                       <span class="ruby-keyword kw">then</span> <span class="ruby-value str">&quot;\&quot;1.5\&quot;&quot;</span>
+          <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:decimal</span>                     <span class="ruby-keyword kw">then</span> <span class="ruby-value str">&quot;\&quot;9.99\&quot;&quot;</span>
+          <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:datetime</span>, <span class="ruby-identifier">:timestamp</span>, <span class="ruby-identifier">:time</span> <span class="ruby-keyword kw">then</span> <span class="ruby-value str">&quot;Time.now&quot;</span>
+          <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:date</span>                        <span class="ruby-keyword kw">then</span> <span class="ruby-value str">&quot;Date.today&quot;</span>
+          <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:string</span>                      <span class="ruby-keyword kw">then</span> <span class="ruby-value str">&quot;\&quot;MyString\&quot;&quot;</span>
+          <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:text</span>                        <span class="ruby-keyword kw">then</span> <span class="ruby-value str">&quot;\&quot;MyText\&quot;&quot;</span>
+          <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:boolean</span>                     <span class="ruby-keyword kw">then</span> <span class="ruby-value str">&quot;false&quot;</span>
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-value str">&quot;&quot;</span>
+        <span class="ruby-keyword kw">end</span>      
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

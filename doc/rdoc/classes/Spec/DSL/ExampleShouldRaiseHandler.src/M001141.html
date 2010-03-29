@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>handle (Spec::DSL::ExampleShouldRaiseHandler)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/dsl/example_should_raise_handler.rb, line 56</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">handle</span>(<span class="ruby-identifier">errors</span>)
+        <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@expected_error_class</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">empty?</span>
+            <span class="ruby-identifier">errors</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Spec</span><span class="ruby-operator">::</span><span class="ruby-constant">Expectations</span><span class="ruby-operator">::</span><span class="ruby-constant">ExpectationNotMetError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">build_message</span>)
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-identifier">error_to_remove</span> = <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">detect</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">error</span><span class="ruby-operator">|</span>
+              <span class="ruby-identifier">error_matches?</span>(<span class="ruby-identifier">error</span>)
+            <span class="ruby-keyword kw">end</span>
+            <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">error_to_remove</span>.<span class="ruby-identifier">nil?</span>
+              <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">insert</span>(<span class="ruby-value">0</span>,<span class="ruby-constant">Spec</span><span class="ruby-operator">::</span><span class="ruby-constant">Expectations</span><span class="ruby-operator">::</span><span class="ruby-constant">ExpectationNotMetError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">build_message</span>(<span class="ruby-identifier">errors</span>[<span class="ruby-value">0</span>])))
+            <span class="ruby-keyword kw">else</span>
+              <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">error_to_remove</span>)
+            <span class="ruby-keyword kw">end</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

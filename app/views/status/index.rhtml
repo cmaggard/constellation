@@ -1,0 +1,18 @@
+<h2>High Tech Service</h2>
+
+<p>
+  If you wish to check the status of a service ticket, 
+  please enter the required information in the form below.
+</p>
+
+<% form_for 'info', @info, :url => { :action => "lookup" } do |f| %>
+  <dl>
+    <dt>Ticket Number:</dt>
+	<dd><%= f.text_field :ticket -%></dd>
+    <dt>First Name:</dt>
+	<dd><%= f.text_field :first_name -%></dd>
+    <dt>Last Name:</dt>
+	<dd><%= f.text_field :last_name -%></dd>
+  </dl>
+  <%= submit_tag "Lookup" %>
+<% end %>

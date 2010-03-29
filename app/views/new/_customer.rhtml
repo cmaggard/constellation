@@ -1,0 +1,6 @@
+<div class="result">
+  <%= link_to( "Select", :action => "find_customer", :id => customer.id ) %>
+  <%= link_to( "Edit", :action => "edit_customer", :id => customer.id ) %>
+  <strong><%= customer.last_first_name %></strong>
+  <em><%= customer.displayable_phone %></em>
+</div>

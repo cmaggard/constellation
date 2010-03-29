@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>technician_dropdown (ApplicationHelper)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File app/helpers/application_helper.rb, line 27</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">technician_dropdown</span>(<span class="ruby-identifier">form</span>, <span class="ruby-identifier">selected</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">field</span> = <span class="ruby-identifier">:technician_id</span>)
+    <span class="ruby-identifier">tech_hash</span> = <span class="ruby-constant">Technician</span>.<span class="ruby-identifier">find_all_by_enabled</span>(<span class="ruby-keyword kw">true</span>).<span class="ruby-identifier">collect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">tek</span><span class="ruby-operator">|</span> [ <span class="ruby-identifier">tek</span>.<span class="ruby-identifier">name</span>, <span class="ruby-identifier">tek</span>.<span class="ruby-identifier">id</span> ] }
+    <span class="ruby-identifier">form</span>.<span class="ruby-identifier">select</span> <span class="ruby-identifier">field</span>, <span class="ruby-identifier">tech_hash</span>, <span class="ruby-identifier">:selected</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">selected</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_action_view_not_included (HelperTest)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/gems/haml-1.7.1/test/haml/helper_test.rb, line 76</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_action_view_not_included</span>
+    <span class="ruby-comment cmt">#This is for 100% rcov, rather than any real testing purposes.</span>
+    <span class="ruby-constant">Kernel</span>.<span class="ruby-identifier">module_eval</span> <span class="ruby-keyword kw">do</span>
+      <span class="ruby-identifier">alias_method</span> <span class="ruby-identifier">:old_require</span>, <span class="ruby-identifier">:require</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">require</span>(<span class="ruby-identifier">string</span>)
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">LoadError</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">string</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;action_view&quot;</span>
+        <span class="ruby-identifier">old_require</span> <span class="ruby-identifier">string</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-identifier">load</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword kw">__FILE__</span>) <span class="ruby-operator">+</span> <span class="ruby-value str">'/../../lib/haml/helpers/action_view_mods.rb'</span>
+
+    <span class="ruby-constant">Kernel</span>.<span class="ruby-identifier">module_eval</span> <span class="ruby-keyword kw">do</span>
+      <span class="ruby-identifier">alias_method</span> <span class="ruby-identifier">:require</span>, <span class="ruby-identifier">:old_require</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

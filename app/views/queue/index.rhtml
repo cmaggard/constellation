@@ -1,0 +1,10 @@
+<h2><%= queue_name -%> Queue - <%= @priqueue.size + @regqueue.size -%> Units</h2>
+<h1>Priority (<%= @priqueue.size -%>)</h1>
+
+  <% colors = [ "#FDD", "#FCC", "#FFB8B8"] -%>
+  <%= render :partial => 'queue', :locals => { :queues => @priqueue, :colors => colors } %>
+
+<h1>Normal (<%= @regqueue.size -%>)</h1>
+
+  <% colors = [ "#DDF", "#CCF", "#B8B8FF"] -%>
+  <%= render :partial => 'queue', :locals => { :queues => @regqueue, :colors => colors } %>

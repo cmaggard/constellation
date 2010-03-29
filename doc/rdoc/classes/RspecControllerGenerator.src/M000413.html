@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>manifest (RspecControllerGenerator)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/plugins/rspec_on_rails/generators/rspec_controller/rspec_controller_generator.rb, line 4</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">manifest</span>
+    <span class="ruby-identifier">record</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span>
+      <span class="ruby-comment cmt"># Check for class naming collisions.</span>
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">class_collisions</span> <span class="ruby-identifier">class_path</span>, <span class="ruby-node">&quot;#{class_name}Controller&quot;</span>, <span class="ruby-node">&quot;#{class_name}Helper&quot;</span>
+
+      <span class="ruby-comment cmt"># Controller, helper, views, and spec directories.</span>
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">directory</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'app/controllers'</span>, <span class="ruby-identifier">class_path</span>)
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">directory</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'app/helpers'</span>, <span class="ruby-identifier">class_path</span>)
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">directory</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'app/views'</span>, <span class="ruby-identifier">class_path</span>, <span class="ruby-identifier">file_name</span>)
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">directory</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'spec/controllers'</span>, <span class="ruby-identifier">class_path</span>)
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">directory</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'spec/helpers'</span>, <span class="ruby-identifier">class_path</span>)
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">directory</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'spec/views'</span>, <span class="ruby-identifier">class_path</span>, <span class="ruby-identifier">file_name</span>)
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-constant">ActionView</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">const_defined?</span>(<span class="ruby-value str">'DEFAULT_TEMPLATE_HANDLER_PREFERENCE'</span>) <span class="ruby-operator">&amp;&amp;</span>
+         <span class="ruby-constant">ActionView</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span><span class="ruby-operator">::</span><span class="ruby-constant">DEFAULT_TEMPLATE_HANDLER_PREFERENCE</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">:erb</span>) <span class="ruby-keyword kw">then</span>
+        <span class="ruby-ivar">@default_file_extension</span> = <span class="ruby-value str">&quot;html.erb&quot;</span>
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-ivar">@default_file_extension</span> = <span class="ruby-value str">&quot;rhtml&quot;</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-comment cmt"># Controller spec, class, and helper.</span>
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">template</span> <span class="ruby-value str">'controller_spec.rb'</span>,
+        <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'spec/controllers'</span>, <span class="ruby-identifier">class_path</span>, <span class="ruby-node">&quot;#{file_name}_controller_spec.rb&quot;</span>)
+
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">template</span> <span class="ruby-value str">'helper_spec.rb'</span>,
+        <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'spec/helpers'</span>, <span class="ruby-identifier">class_path</span>, <span class="ruby-node">&quot;#{file_name}_helper_spec.rb&quot;</span>)
+
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">template</span> <span class="ruby-value str">'controller:controller.rb'</span>,
+        <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'app/controllers'</span>, <span class="ruby-identifier">class_path</span>, <span class="ruby-node">&quot;#{file_name}_controller.rb&quot;</span>)
+
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">template</span> <span class="ruby-value str">'controller:helper.rb'</span>,
+        <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'app/helpers'</span>, <span class="ruby-identifier">class_path</span>, <span class="ruby-node">&quot;#{file_name}_helper.rb&quot;</span>)
+
+      <span class="ruby-comment cmt"># Spec and view template for each action.</span>
+      <span class="ruby-identifier">actions</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">action</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">m</span>.<span class="ruby-identifier">template</span> <span class="ruby-value str">'view_spec.rb'</span>,
+          <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'spec/views'</span>, <span class="ruby-identifier">class_path</span>, <span class="ruby-identifier">file_name</span>, <span class="ruby-node">&quot;#{action}.#{@default_file_extension}_spec.rb&quot;</span>),
+          <span class="ruby-identifier">:assigns</span> =<span class="ruby-operator">&gt;</span> { <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">action</span>, <span class="ruby-identifier">:model</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">file_name</span> }
+        <span class="ruby-identifier">path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'app/views'</span>, <span class="ruby-identifier">class_path</span>, <span class="ruby-identifier">file_name</span>, <span class="ruby-node">&quot;#{action}.#{@default_file_extension}&quot;</span>)
+        <span class="ruby-identifier">m</span>.<span class="ruby-identifier">template</span> <span class="ruby-node">&quot;controller:view.#{@default_file_extension}&quot;</span>,
+          <span class="ruby-identifier">path</span>,
+          <span class="ruby-identifier">:assigns</span> =<span class="ruby-operator">&gt;</span> { <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">action</span>, <span class="ruby-identifier">:path</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">path</span> }
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

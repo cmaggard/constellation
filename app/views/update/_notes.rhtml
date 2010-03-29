@@ -1,0 +1,5 @@
+<table id="notes">
+<% @notes.reverse.each do |note| -%>
+<%= render :partial => 'update/note', :locals => { :note => note } %>
+<% end -%>
+</table>

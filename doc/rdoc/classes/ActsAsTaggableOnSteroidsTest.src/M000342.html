@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_find_tagged_with_exclusions (ActsAsTaggableOnSteroidsTest)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/plugins/acts_as_taggable_on_steroids/test/acts_as_taggable_test.rb, line 48</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_find_tagged_with_exclusions</span>
+    <span class="ruby-identifier">assert_equivalent</span> [<span class="ruby-identifier">photos</span>(<span class="ruby-identifier">:jonathan_questioning_dog</span>), <span class="ruby-identifier">photos</span>(<span class="ruby-identifier">:jonathan_bad_cat</span>)], <span class="ruby-constant">Photo</span>.<span class="ruby-identifier">find_tagged_with</span>(<span class="ruby-value str">&quot;Nature&quot;</span>, <span class="ruby-identifier">:exclude</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>)
+    <span class="ruby-identifier">assert_equivalent</span> [<span class="ruby-identifier">posts</span>(<span class="ruby-identifier">:jonathan_grass</span>), <span class="ruby-identifier">posts</span>(<span class="ruby-identifier">:jonathan_rain</span>), <span class="ruby-identifier">posts</span>(<span class="ruby-identifier">:jonathan_cloudy</span>), <span class="ruby-identifier">posts</span>(<span class="ruby-identifier">:jonathan_still_cloudy</span>)], <span class="ruby-constant">Post</span>.<span class="ruby-identifier">find_tagged_with</span>(<span class="ruby-value str">&quot;'Very good', Bad&quot;</span>, <span class="ruby-identifier">:exclude</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>)
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

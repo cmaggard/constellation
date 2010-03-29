@@ -1,0 +1,25 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+cody:
+    id: 1
+    first_name: Cody
+    last_name: Maggard
+    phone_number: 806-932-4358
+charles:
+    id: 2
+    first_name: Charles
+    last_name: DuBose
+    phone_number: 806-948-1666
+monty:
+    id: 3
+    first_name: Monty
+    last_name: Strauss
+    phone_number: 806-029-3862
+    department: Math
+    alt_phone_number: 806-185-1285
+ray:
+    id: 4
+    first_name: Ray
+    last_name: Desrosiers
+    phone_number: 806-192-4952
+    department: Computer Science
+    email_address: ray.desrosiers@ttu.edu

@@ -1,0 +1,17 @@
+<h1>Changing password for: <%= @tech.name %></h1>
+
+<p>
+<% form_tag do %>
+<table>
+  <tr>
+    <td>New Password:</td>
+    <td><%= password_field_tag :password %></td>
+  </tr>
+  <tr>
+    <td>Confirm Password:</td>
+    <td><%= password_field_tag :password_confirm %></td>
+  </tr>
+</table>
+<%= submit_tag %>
+<% end %>
+</p>

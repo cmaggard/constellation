@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>assert_rjs_insert_html (Arts)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/plugins/arts/lib/arts.rb, line 20</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">assert_rjs_insert_html</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+    <span class="ruby-identifier">position</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">shift</span>
+    <span class="ruby-identifier">item_id</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">shift</span>
+    
+    <span class="ruby-identifier">content</span> = <span class="ruby-identifier">extract_matchable_content</span>(<span class="ruby-identifier">args</span>)
+    
+    <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">content</span>.<span class="ruby-identifier">blank?</span>
+      <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">content</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Regexp</span>
+          <span class="ruby-identifier">assert_match</span> <span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;new Insertion\.#{position.to_s.camelize}(.*#{item_id}.*,.*#{content.source}.*);&quot;</span>),
+                       <span class="ruby-ivar">@response</span>.<span class="ruby-identifier">body</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-constant">String</span>
+          <span class="ruby-identifier">assert</span> <span class="ruby-identifier">lined_response</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-node">&quot;new Insertion.#{position.to_s.camelize}(\&quot;#{item_id}\&quot;, #{content});&quot;</span>),
+                 <span class="ruby-value str">&quot;No insert_html call found for \n&quot;</span> <span class="ruby-operator">+</span>
+                 <span class="ruby-node">&quot;     position: '#{position}' id: '#{item_id}' \ncontent: \n&quot;</span> <span class="ruby-operator">+</span>
+                 <span class="ruby-node">&quot;#{content}\n&quot;</span> <span class="ruby-operator">+</span>
+                 <span class="ruby-node">&quot;in response:\n#{lined_response}&quot;</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Invalid content type&quot;</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-identifier">assert_match</span> <span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;new Insertion\.#{position.to_s.camelize}(.*#{item_id}.*,.*?);&quot;</span>), 
+                   <span class="ruby-ivar">@response</span>.<span class="ruby-identifier">body</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

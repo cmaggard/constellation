@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>benchmark (Haml::Benchmarker)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/gems/haml-1.7.1/test/benchmark.rb, line 28</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">benchmark</span>(<span class="ruby-identifier">runs</span> = <span class="ruby-value">100</span>)
+      <span class="ruby-identifier">template_name</span> = <span class="ruby-value str">'standard'</span>
+      <span class="ruby-identifier">haml_template</span> = <span class="ruby-node">&quot;haml/templates/#{template_name}&quot;</span>
+      <span class="ruby-identifier">rhtml_template</span> = <span class="ruby-node">&quot;haml/rhtml/#{template_name}&quot;</span>
+      <span class="ruby-identifier">sass_template</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword kw">__FILE__</span>) <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;/sass/templates/complex.sass&quot;</span>
+      
+      <span class="ruby-identifier">old_stdout</span> = <span class="ruby-identifier">$stdout</span>
+      <span class="ruby-identifier">$stdout</span> = <span class="ruby-constant">StringIO</span>.<span class="ruby-identifier">new</span>
+      
+      <span class="ruby-identifier">times</span> = <span class="ruby-constant">Benchmark</span>.<span class="ruby-identifier">bmbm</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">b</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">b</span>.<span class="ruby-identifier">report</span>(<span class="ruby-value str">&quot;haml:&quot;</span>) { <span class="ruby-identifier">runs</span>.<span class="ruby-identifier">times</span> { <span class="ruby-ivar">@base</span>.<span class="ruby-identifier">render</span> <span class="ruby-identifier">haml_template</span> } }
+        <span class="ruby-identifier">b</span>.<span class="ruby-identifier">report</span>(<span class="ruby-value str">&quot;erb:&quot;</span>) { <span class="ruby-identifier">runs</span>.<span class="ruby-identifier">times</span> { <span class="ruby-ivar">@base</span>.<span class="ruby-identifier">render</span> <span class="ruby-identifier">rhtml_template</span> } }
+      <span class="ruby-keyword kw">end</span>
+      
+      <span class="ruby-comment cmt">#puts times[0].inspect, times[1].inspect</span>
+      <span class="ruby-identifier">ratio</span> = <span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">&quot;%g&quot;</span>, <span class="ruby-identifier">times</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">to_a</span>[<span class="ruby-value">5</span>] <span class="ruby-operator">/</span> <span class="ruby-identifier">times</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">to_a</span>[<span class="ruby-value">5</span>])
+      <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;Haml/ERB: &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">ratio</span>
+      
+      <span class="ruby-identifier">puts</span> <span class="ruby-value str">''</span>, <span class="ruby-value str">'-'</span> <span class="ruby-operator">*</span> <span class="ruby-value">50</span>, <span class="ruby-value str">'Sass on its own'</span>, <span class="ruby-value str">'-'</span> <span class="ruby-operator">*</span> <span class="ruby-value">50</span>
+      
+      <span class="ruby-constant">Benchmark</span>.<span class="ruby-identifier">bmbm</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">b</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">b</span>.<span class="ruby-identifier">report</span>(<span class="ruby-value str">&quot;sass:&quot;</span>) { <span class="ruby-identifier">runs</span>.<span class="ruby-identifier">times</span> { <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Engine</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">sass_template</span>)).<span class="ruby-identifier">render</span> } }
+      <span class="ruby-keyword kw">end</span>
+      
+      <span class="ruby-identifier">$stdout</span>.<span class="ruby-identifier">pos</span> = <span class="ruby-value">0</span>
+      <span class="ruby-identifier">to_return</span> = <span class="ruby-identifier">$stdout</span>.<span class="ruby-identifier">read</span>
+      <span class="ruby-identifier">$stdout</span> = <span class="ruby-identifier">old_stdout</span>
+      
+      <span class="ruby-identifier">to_return</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

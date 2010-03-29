@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_tag_cloud (TagsHelperTest)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/plugins/acts_as_taggable_on_steroids/test/tags_helper_test.rb, line 8</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_tag_cloud</span>
+    <span class="ruby-identifier">cloud_elements</span> = []
+    
+    <span class="ruby-identifier">tag_cloud</span> <span class="ruby-constant">Post</span>.<span class="ruby-identifier">tag_counts</span>, <span class="ruby-node">%w(css1 css2 css3 css4)</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">tag</span>, <span class="ruby-identifier">css_class</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">cloud_elements</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">tag</span>, <span class="ruby-identifier">css_class</span>]
+    <span class="ruby-keyword kw">end</span>
+    
+    <span class="ruby-identifier">assert_equal</span> [
+      [<span class="ruby-identifier">tags</span>(<span class="ruby-identifier">:good</span>), <span class="ruby-value str">&quot;css2&quot;</span>],
+      [<span class="ruby-identifier">tags</span>(<span class="ruby-identifier">:bad</span>), <span class="ruby-value str">&quot;css1&quot;</span>],
+      [<span class="ruby-identifier">tags</span>(<span class="ruby-identifier">:nature</span>), <span class="ruby-value str">&quot;css4&quot;</span>],
+      [<span class="ruby-identifier">tags</span>(<span class="ruby-identifier">:question</span>), <span class="ruby-value str">&quot;css1&quot;</span>]
+    ], <span class="ruby-identifier">cloud_elements</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

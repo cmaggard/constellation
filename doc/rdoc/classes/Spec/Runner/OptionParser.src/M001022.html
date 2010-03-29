@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>parse_options_file (Spec::Runner::OptionParser)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/option_parser.rb, line 174</span>
+      <span class="ruby-keyword kw">def</span>  <span class="ruby-identifier">parse_options_file</span><span class="ruby-identifier">parse_options_file</span>(<span class="ruby-identifier">options_file</span>, <span class="ruby-identifier">out_stream</span>, <span class="ruby-identifier">error_stream</span>, <span class="ruby-identifier">args_copy</span>, <span class="ruby-identifier">warn_if_no_files</span>)
+        <span class="ruby-comment cmt"># Remove the --options option and the argument before writing to file</span>
+        <span class="ruby-identifier">index</span> = <span class="ruby-identifier">args_copy</span>.<span class="ruby-identifier">index</span>(<span class="ruby-value str">&quot;-O&quot;</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">args_copy</span>.<span class="ruby-identifier">index</span>(<span class="ruby-value str">&quot;--options&quot;</span>)
+        <span class="ruby-identifier">args_copy</span>.<span class="ruby-identifier">delete_at</span>(<span class="ruby-identifier">index</span>)
+        <span class="ruby-identifier">args_copy</span>.<span class="ruby-identifier">delete_at</span>(<span class="ruby-identifier">index</span>)
+
+        <span class="ruby-identifier">new_args</span> = <span class="ruby-identifier">args_copy</span> <span class="ruby-operator">+</span> <span class="ruby-constant">IO</span>.<span class="ruby-identifier">readlines</span>(<span class="ruby-identifier">options_file</span>).<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-identifier">l</span>.<span class="ruby-identifier">chomp</span>.<span class="ruby-identifier">split</span> <span class="ruby-value str">&quot; &quot;</span>}.<span class="ruby-identifier">flatten</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-constant">CommandLine</span>.<span class="ruby-identifier">run</span>(<span class="ruby-identifier">new_args</span>, <span class="ruby-identifier">error_stream</span>, <span class="ruby-identifier">out_stream</span>, <span class="ruby-keyword kw">true</span>, <span class="ruby-identifier">warn_if_no_files</span>)
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

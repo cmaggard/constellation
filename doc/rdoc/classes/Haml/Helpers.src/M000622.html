@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>surround (Haml::Helpers)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/gems/haml-1.7.1/lib/haml/helpers.rb, line 151</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">surround</span>(<span class="ruby-identifier">front</span>, <span class="ruby-identifier">back</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+      <span class="ruby-identifier">back</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">front</span>
+      <span class="ruby-identifier">output</span> = <span class="ruby-identifier">capture_haml</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+      
+      <span class="ruby-node">&quot;#{front}#{output.chomp}#{back}\n&quot;</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

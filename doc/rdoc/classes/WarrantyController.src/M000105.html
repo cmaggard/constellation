@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>request_part (WarrantyController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File app/controllers/warranty_controller.rb, line 18</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">request_part</span>
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">get?</span>
+      <span class="ruby-ivar">@part</span> = <span class="ruby-constant">Part</span>.<span class="ruby-identifier">new</span>
+      <span class="ruby-ivar">@part</span>.<span class="ruby-identifier">ticket_id</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>]
+    <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">post?</span>
+      <span class="ruby-identifier">ticket</span> = <span class="ruby-constant">Ticket</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>])
+      <span class="ruby-identifier">technician</span> = <span class="ruby-constant">Technician</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:part</span>][<span class="ruby-identifier">:technician_id</span>])
+      <span class="ruby-ivar">@part</span> = <span class="ruby-constant">Part</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:part</span>])
+      <span class="ruby-ivar">@part</span>.<span class="ruby-identifier">technician</span> = <span class="ruby-identifier">technician</span>
+      <span class="ruby-ivar">@part</span>.<span class="ruby-identifier">ticket</span> = <span class="ruby-identifier">ticket</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@part</span>.<span class="ruby-identifier">save</span>
+        <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-value str">&quot;Part requested.&quot;</span>
+        <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'/view'</span>, <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:index</span>, <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ticket_id</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span>
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-value str">&quot;Error in saving part request.  Grovel before Cody and beg his forgiveness.&quot;</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

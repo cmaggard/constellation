@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>describe (Kernel)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/extensions/kernel.rb, line 20</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">describe</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">empty?</span>
+    <span class="ruby-identifier">args</span> <span class="ruby-operator">&lt;&lt;</span> {} <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">Hash</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">last</span>
+    <span class="ruby-identifier">args</span>.<span class="ruby-identifier">last</span>[<span class="ruby-identifier">:spec_path</span>] = <span class="ruby-identifier">caller</span>(<span class="ruby-value">0</span>)[<span class="ruby-value">1</span>]
+    <span class="ruby-identifier">register_behaviour</span>(<span class="ruby-constant">Spec</span><span class="ruby-operator">::</span><span class="ruby-constant">DSL</span><span class="ruby-operator">::</span><span class="ruby-constant">BehaviourFactory</span>.<span class="ruby-identifier">create</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>))
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>reopen (UpdateController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File app/controllers/update_controller.rb, line 92</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reopen</span>
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">session</span>[<span class="ruby-identifier">:admin</span>]
+      <span class="ruby-identifier">ticket</span> = <span class="ruby-constant">Ticket</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>])
+      <span class="ruby-identifier">ticket</span>.<span class="ruby-identifier">reopen!</span>
+      <span class="ruby-identifier">ticket</span>.<span class="ruby-identifier">add_note</span>(<span class="ruby-identifier">session</span>[<span class="ruby-identifier">:technician</span>], <span class="ruby-value str">&quot;Administrative Action: Ticket reopened.&quot;</span>)
+      <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-value str">&quot;Ticket reopened.  I'd put something clever here but it isn't nice to make fun of retarded people.&quot;</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'view'</span>, <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>]
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

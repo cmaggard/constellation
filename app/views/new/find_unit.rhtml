@@ -1,0 +1,26 @@
+<h1>Step 2 - Select/Create Unit</h1>
+
+<% unless @unit.errors.empty? %>
+<%= error_messages_for "unit" %>
+<% end %>
+
+<p>
+Select an existing customer unit:
+<p>
+<%= render :partial => "unit", :collection => @custunits %>
+</p>
+<p>
+Or lookup an existing unit / create a new one:
+</p>
+<p>
+<div id="mainform">
+	<% form_for :unit, @unit, :url => { :action => :edit_unit } do |f| %>
+  <%= render :partial => 'unit_form', :locals => { :f => f } %>
+  <% end %>
+</div>
+</p>
+<%= observe_field( :unit_serial_number, :frequency => 0.5, :update => :results, :url => { :action => :find_unit } ) %>
+</p>
+<p>
+<div id="results"></div>
+</p>

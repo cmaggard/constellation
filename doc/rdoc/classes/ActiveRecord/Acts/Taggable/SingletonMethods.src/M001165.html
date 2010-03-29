@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>find_options_for_tag_counts (ActiveRecord::Acts::Taggable::SingletonMethods)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/plugins/acts_as_taggable_on_steroids/lib/acts_as_taggable.rb, line 98</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_options_for_tag_counts</span>(<span class="ruby-identifier">options</span> = {})
+          <span class="ruby-identifier">options</span>.<span class="ruby-identifier">assert_valid_keys</span> <span class="ruby-identifier">:start_at</span>, <span class="ruby-identifier">:end_at</span>, <span class="ruby-identifier">:conditions</span>, <span class="ruby-identifier">:at_least</span>, <span class="ruby-identifier">:at_most</span>, <span class="ruby-identifier">:order</span>, <span class="ruby-identifier">:limit</span>
+          <span class="ruby-identifier">options</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">dup</span>
+          
+          <span class="ruby-identifier">scope</span> = <span class="ruby-identifier">scope</span>(<span class="ruby-identifier">:find</span>)
+          <span class="ruby-identifier">start_at</span> = <span class="ruby-identifier">sanitize_sql</span>([<span class="ruby-node">&quot;#{Tagging.table_name}.created_at &gt;= ?&quot;</span>, <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:start_at</span>)]) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:start_at</span>]
+          <span class="ruby-identifier">end_at</span> = <span class="ruby-identifier">sanitize_sql</span>([<span class="ruby-node">&quot;#{Tagging.table_name}.created_at &lt;= ?&quot;</span>, <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:end_at</span>)]) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:end_at</span>]
+          
+          <span class="ruby-identifier">conditions</span> = [
+            <span class="ruby-node">&quot;#{Tagging.table_name}.taggable_type = #{quote_value(base_class.name)}&quot;</span>,
+            <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:conditions</span>),
+            <span class="ruby-identifier">scope</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">scope</span>[<span class="ruby-identifier">:conditions</span>],
+            <span class="ruby-identifier">start_at</span>,
+            <span class="ruby-identifier">end_at</span>
+          ]
+          
+          <span class="ruby-identifier">conditions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">type_condition</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">descends_from_active_record?</span> 
+          <span class="ruby-identifier">conditions</span>.<span class="ruby-identifier">compact!</span>
+          <span class="ruby-identifier">conditions</span> = <span class="ruby-identifier">conditions</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">' AND '</span>)
+          
+          <span class="ruby-identifier">joins</span> = [<span class="ruby-node">&quot;INNER JOIN #{Tagging.table_name} ON #{Tag.table_name}.id = #{Tagging.table_name}.tag_id&quot;</span>]
+          <span class="ruby-identifier">joins</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;INNER JOIN #{table_name} ON #{table_name}.#{primary_key} = #{Tagging.table_name}.taggable_id&quot;</span>
+          <span class="ruby-identifier">joins</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">scope</span>[<span class="ruby-identifier">:joins</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">scope</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">scope</span>[<span class="ruby-identifier">:joins</span>]
+          
+          <span class="ruby-identifier">at_least</span>  = <span class="ruby-identifier">sanitize_sql</span>([<span class="ruby-value str">'COUNT(*) &gt;= ?'</span>, <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:at_least</span>)]) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:at_least</span>]
+          <span class="ruby-identifier">at_most</span>   = <span class="ruby-identifier">sanitize_sql</span>([<span class="ruby-value str">'COUNT(*) &lt;= ?'</span>, <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:at_most</span>)]) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:at_most</span>]
+          <span class="ruby-identifier">having</span>    = [<span class="ruby-identifier">at_least</span>, <span class="ruby-identifier">at_most</span>].<span class="ruby-identifier">compact</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">' AND '</span>)
+          <span class="ruby-identifier">group_by</span>  = <span class="ruby-node">&quot;#{Tag.table_name}.id, #{Tag.table_name}.name HAVING COUNT(*) &gt; 0&quot;</span>
+          <span class="ruby-identifier">group_by</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot; AND #{having}&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">having</span>.<span class="ruby-identifier">blank?</span>
+          
+          { <span class="ruby-identifier">:select</span>     =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;#{Tag.table_name}.id, #{Tag.table_name}.name, COUNT(*) AS count&quot;</span>, 
+            <span class="ruby-identifier">:joins</span>      =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">joins</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot; &quot;</span>),
+            <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">conditions</span>,
+            <span class="ruby-identifier">:group</span>      =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">group_by</span>
+          }.<span class="ruby-identifier">reverse_merge!</span>(<span class="ruby-identifier">options</span>)
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

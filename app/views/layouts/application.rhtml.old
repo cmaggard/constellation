@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <%= stylesheet_link_tag "style", "application" %>
+	  <%= javascript_include_tag "prototype" %>
+	  <title><%= @page_title || "High Tech Service" %></title>
+  </head>
+  <body>
+    <div id="wrap">
+      <div id="header">
+        <h2 style="float:left;">High Tech Service</h2>
+        <div style="float:right;" id="search">
+          <%= render :partial => "tickets/quicksearch" %>
+        </div>
+      </div>
+      <div id="sidebar">
+        SIDEBAR LOVIN
+      </div>
+      <div id="content">
+        <% if flash[:notice] %>
+        <div id="notice"><%= flash[:notice] %></div>
+        <% end %>
+        <%= yield %>
+      </div>
+      <div id="footer">
+        <div><h5>Powered by Constellation</h5></div>
+      </div>
+    </div>
+  </body>
+</html>	

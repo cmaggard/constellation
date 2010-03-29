@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_tag_counts_respects_custom_table_names (ActsAsTaggableOnSteroidsTest)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/plugins/acts_as_taggable_on_steroids/test/acts_as_taggable_test.rb, line 140</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_tag_counts_respects_custom_table_names</span>
+    <span class="ruby-constant">Tagging</span>.<span class="ruby-identifier">table_name</span> = <span class="ruby-value str">&quot;categorisations&quot;</span>
+    <span class="ruby-constant">Tag</span>.<span class="ruby-identifier">table_name</span> = <span class="ruby-value str">&quot;categories&quot;</span>
+    
+    <span class="ruby-identifier">options</span> = <span class="ruby-constant">Photo</span>.<span class="ruby-identifier">find_options_for_tag_counts</span>(<span class="ruby-identifier">:start_at</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">2</span>.<span class="ruby-identifier">weeks</span>.<span class="ruby-identifier">ago</span>, <span class="ruby-identifier">:end_at</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Date</span>.<span class="ruby-identifier">today</span>)
+    <span class="ruby-identifier">sql</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">' '</span>)
+    
+    <span class="ruby-identifier">assert_no_match</span> <span class="ruby-regexp re">/taggings/</span>, <span class="ruby-identifier">sql</span>
+    <span class="ruby-identifier">assert_no_match</span> <span class="ruby-regexp re">/tags/</span>, <span class="ruby-identifier">sql</span>
+    
+    <span class="ruby-identifier">assert_match</span> <span class="ruby-regexp re">/categorisations/</span>, <span class="ruby-identifier">sql</span>
+    <span class="ruby-identifier">assert_match</span> <span class="ruby-regexp re">/categories/</span>, <span class="ruby-identifier">sql</span>
+  <span class="ruby-keyword kw">ensure</span>
+    <span class="ruby-constant">Tagging</span>.<span class="ruby-identifier">table_name</span> = <span class="ruby-value str">&quot;taggings&quot;</span>
+    <span class="ruby-constant">Tag</span>.<span class="ruby-identifier">table_name</span> = <span class="ruby-value str">&quot;tags&quot;</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

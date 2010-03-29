@@ -1,0 +1,9 @@
+<% unless @customer.errors.empty? %>
+<%= error_messages_for "customer" %>
+<% end %>
+
+<h1>Edit Customer</h1>
+
+<% form_for :customer, @customer do |f| %>
+<%= render :partial => "customer_form", :locals => { :f => f } %>
+<% end %>

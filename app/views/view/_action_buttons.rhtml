@@ -1,0 +1,19 @@
+<input type="button" value="Print" onclick="javascript:print()"/> 
+  <br />
+  <br />
+<%= button_to "Claim", :controller => 'update', :action => "claim", :id => @ticket.id %>
+  <br />
+<input type='button' value='Close' onclick='window.location.href="<%= 
+       url_for :controller => 'update', :action => :close, :id => @ticket.id 
+      -%>"'/>
+  <br />
+  <br />
+<%= button_to "Pickup", :controller => 'update', :action => "pickup", 
+                        :id => @ticket.id %>
+  <br />
+<% if @ticket.closed? && @admin %>
+<%= button_to "Reopen", { :controller => 'update', 
+						  :action => "reopen",
+						  :id => @ticket.id },
+						:confirm => "Are you sure?  This cannot be undone.  I CAN'T DO THIS AGAIN I WONT" %>
+<% end %>

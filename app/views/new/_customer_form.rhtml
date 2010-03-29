@@ -1,0 +1,35 @@
+  <table>
+    <tr>
+      <td>First Name </td>
+      <td>
+		<%= f.text_field :first_name, :size => 20 %>
+      </td>
+      <td>Last Name</td>
+      <td>
+      	<%= f.text_field :last_name, :size => 20 %>
+      </td>
+    </tr>
+    <tr>
+      <td>Primary Phone</td>
+      <td>
+      	<%= f.text_field :phone_number, :size => 20 %>
+      </td>
+      <td>Secondary Phone # </td>
+      <td>
+      	<%= f.text_field :alt_phone_number, :size => 20 %>
+      </td>
+    </tr>
+    <tr>
+      <td>Email</td>
+      <td>
+      	<%= f.text_field :email_address, :size => 20 %>
+      </td>
+      <td>Department</td>
+      <td>
+      	<%= f.text_field :department, :size => 20 %>
+      </td>
+    </tr>
+    <tr>
+	  <td colspan="4" align="center"><%= submit_tag "Save and continue" %>
+	</tr>
+  </table>

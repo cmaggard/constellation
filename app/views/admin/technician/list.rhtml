@@ -1,0 +1,32 @@
+<h1>Listing technicians</h1>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Initials</th>
+    <th>Name</th>
+    <th>Username</th>
+    <th>Disabled?</th>
+    <th>Admin?</th>
+  </tr>  
+<% for technician in @technicians %>
+  <tr>
+    <td><%= technician.id -%></td>
+    <td><%= technician.initials -%></td>
+    <td><%= technician.name -%></td>
+    <td><%= technician.username -%></td>
+    <td><%= "yes" unless technician.enabled? -%></td>
+    <td><%= "yes" if technician.admin? -%></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => technician %></td>
+    <td><%= link_to (technician.enabled? ? "Disable" : "Enable"), :action => :toggle, :id => technician %>
+    <td><%= link_to 'Reset Password', { :action => 'reset', :id => technician }, :confirm => 'Are you sure?', :post => true %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @technician_pages.current.previous } if @technician_pages.current.previous %>
+<%= link_to 'Next page', { :page => @technician_pages.current.next } if @technician_pages.current.next %> 
+
+<br />
+
+<%= link_to 'New technician', :action => 'new' %>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>translate_line (Spec::Translator)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/translator.rb, line 36</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">translate_line</span>(<span class="ruby-identifier">line</span>)
+      <span class="ruby-comment cmt"># Translate deprecated mock constraints</span>
+      <span class="ruby-identifier">line</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/:any_args/</span>, <span class="ruby-value str">'any_args'</span>)
+      <span class="ruby-identifier">line</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/:anything/</span>, <span class="ruby-value str">'anything'</span>)
+      <span class="ruby-identifier">line</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/:boolean/</span>, <span class="ruby-value str">'boolean'</span>)
+      <span class="ruby-identifier">line</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/:no_args/</span>, <span class="ruby-value str">'no_args'</span>)
+      <span class="ruby-identifier">line</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/:numeric/</span>, <span class="ruby-value str">'an_instance_of(Numeric)'</span>)
+      <span class="ruby-identifier">line</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/:string/</span>, <span class="ruby-value str">'an_instance_of(String)'</span>)
+
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">line</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">line</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/(should_not|should)_receive/</span>
+      
+      <span class="ruby-identifier">line</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/(^\s*)context([\s*|\(]['|&quot;|A-Z])/</span>, <span class="ruby-value str">'\1describe\2'</span>)
+      <span class="ruby-identifier">line</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/(^\s*)specify([\s*|\(]['|&quot;|A-Z])/</span>, <span class="ruby-value str">'\1it\2'</span>)
+      <span class="ruby-identifier">line</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/(^\s*)context_setup(\s*[do|\{])/</span>, <span class="ruby-value str">'\1before(:all)\2'</span>)
+      <span class="ruby-identifier">line</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/(^\s*)context_teardown(\s*[do|\{])/</span>, <span class="ruby-value str">'\1after(:all)\2'</span>)
+      <span class="ruby-identifier">line</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/(^\s*)setup(\s*[do|\{])/</span>, <span class="ruby-value str">'\1before(:each)\2'</span>)
+      <span class="ruby-identifier">line</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/(^\s*)teardown(\s*[do|\{])/</span>, <span class="ruby-value str">'\1after(:each)\2'</span>)
+      
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">line</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/(.*\.)(should_not|should)(?:_be)(?!_)(.*)/</span><span class="ruby-identifier">m</span>
+        <span class="ruby-identifier">pre</span> = <span class="ruby-identifier">$1</span>
+        <span class="ruby-identifier">should</span> = <span class="ruby-identifier">$2</span>
+        <span class="ruby-identifier">post</span> = <span class="ruby-identifier">$3</span>
+        <span class="ruby-identifier">be_or_equal</span> = <span class="ruby-identifier">post</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/(&lt;|&gt;)/</span> <span class="ruby-operator">?</span> <span class="ruby-value str">&quot;be&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-value str">&quot;equal&quot;</span>
+        
+        <span class="ruby-keyword kw">return</span> <span class="ruby-node">&quot;#{pre}#{should} #{be_or_equal}#{post}&quot;</span>
+      <span class="ruby-keyword kw">end</span>
+      
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">line</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/(.*\.)(should_not|should)_(?!not)\s*(.*)/</span><span class="ruby-identifier">m</span>
+        <span class="ruby-identifier">pre</span> = <span class="ruby-identifier">$1</span>
+        <span class="ruby-identifier">should</span> = <span class="ruby-identifier">$2</span>
+        <span class="ruby-identifier">post</span> = <span class="ruby-identifier">$3</span>
+        
+        <span class="ruby-identifier">post</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/^raise/</span>, <span class="ruby-value str">'raise_error'</span>)
+        <span class="ruby-identifier">post</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/^throw/</span>, <span class="ruby-value str">'throw_symbol'</span>)
+        
+        <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">standard_matcher?</span>(<span class="ruby-identifier">post</span>)
+          <span class="ruby-identifier">post</span> = <span class="ruby-node">&quot;be_#{post}&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+        
+        <span class="ruby-comment cmt"># Add parenthesis</span>
+        <span class="ruby-identifier">post</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/^(\w+)\s+([\w|\.|\,|\(.*\)|\'|\&quot;|\:|@| ]+)(\})/</span>, <span class="ruby-value str">'\1(\2)\3'</span>) <span class="ruby-comment cmt"># inside a block</span>
+        <span class="ruby-identifier">post</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/^(redirect_to)\s+(.*)/</span>, <span class="ruby-value str">'\1(\2)'</span>) <span class="ruby-comment cmt"># redirect_to, which often has http:</span>
+        <span class="ruby-identifier">post</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/^(\w+)\s+([\w|\.|\,|\(.*\)|\{.*\}|\'|\&quot;|\:|@| ]+)/</span>, <span class="ruby-value str">'\1(\2)'</span>)
+        <span class="ruby-identifier">post</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/(\s+\))/</span>, <span class="ruby-value str">')'</span>)
+        <span class="ruby-identifier">post</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/\)\}/</span>, <span class="ruby-value str">') }'</span>)
+        <span class="ruby-identifier">post</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">/^(\w+)\s+(\/.*\/)/</span>, <span class="ruby-value str">'\1(\2)'</span>) <span class="ruby-comment cmt">#regexps</span>
+        <span class="ruby-identifier">line</span> = <span class="ruby-node">&quot;#{pre}#{should} #{post}&quot;</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">line</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

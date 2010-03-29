@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>find_shared_behaviour (Spec::DSL::Behaviour)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/dsl/behaviour.rb, line 15</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_shared_behaviour</span>(<span class="ruby-identifier">behaviour_description</span>)
+          <span class="ruby-identifier">shared_behaviours</span>.<span class="ruby-identifier">find</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">b</span>.<span class="ruby-identifier">description</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">behaviour_description</span> }
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

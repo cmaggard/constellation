@@ -1,0 +1,29 @@
+<% form_for :message, @message do |f| %>
+<table>
+    <tr>
+        <td>
+            From:
+        </td>
+        <td>
+            <%= @sender.name -%>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            To:
+        </td>
+        <td>
+             <%= technician_dropdown(f, @receiver.to_i, :receiver) -%>
+        </td>
+    </tr>
+    <tr>
+        <td>Message:</td>
+    </tr>
+    <tr>
+        <td colspan='2'>
+            <%= f.text_area :message, :rows => 5 -%>
+        </td>
+    </tr>
+</table>
+<%= submit_tag "I'm sure it's very important." %>
+<% end %>

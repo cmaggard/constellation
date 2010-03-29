@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_action_view_templates_render_correctly (TemplateTest)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/gems/haml-1.7.1/test/haml/template_test.rb, line 70</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_action_view_templates_render_correctly</span>
+    <span class="ruby-ivar">@base</span>.<span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-value str">&quot;@content_for_layout&quot;</span>, <span class="ruby-value str">'Lorem ipsum dolor sit amet'</span>)
+    <span class="ruby-identifier">assert_renders_correctly</span> <span class="ruby-value str">'content_for_layout'</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>parse (Spec::Runner::OptionParser)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/plugins/rspec/lib/spec/runner/option_parser.rb, line 96</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse</span>(<span class="ruby-identifier">args</span>, <span class="ruby-identifier">err</span>, <span class="ruby-identifier">out</span>, <span class="ruby-identifier">warn_if_no_files</span>)
+        <span class="ruby-identifier">options_file</span> = <span class="ruby-keyword kw">nil</span>
+        <span class="ruby-identifier">args_copy</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">dup</span>
+        <span class="ruby-identifier">options</span> = <span class="ruby-constant">Options</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">err</span>, <span class="ruby-identifier">out</span>)
+
+        <span class="ruby-identifier">opts</span> = <span class="ruby-operator">::</span><span class="ruby-constant">OptionParser</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">opts</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">banner</span> = <span class="ruby-value str">&quot;Usage: spec (FILE|DIRECTORY|GLOB)+ [options]&quot;</span>
+          <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">separator</span> <span class="ruby-value str">&quot;&quot;</span>
+
+          <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">rspec_on</span>(<span class="ruby-identifier">name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+            <span class="ruby-identifier">on</span>(<span class="ruby-operator">*</span><span class="ruby-constant">COMMAND_LINE</span>[<span class="ruby-identifier">name</span>], <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+          <span class="ruby-keyword kw">end</span>
+
+          <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">rspec_on</span>(<span class="ruby-identifier">:diff</span>) {<span class="ruby-operator">|</span><span class="ruby-identifier">diff</span><span class="ruby-operator">|</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">parse_diff</span>(<span class="ruby-identifier">diff</span>)}
+
+          <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">rspec_on</span>(<span class="ruby-identifier">:colour</span>) {<span class="ruby-identifier">options</span>.<span class="ruby-identifier">colour</span> = <span class="ruby-keyword kw">true</span>}
+
+          <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">rspec_on</span>(<span class="ruby-identifier">:example</span>) {<span class="ruby-operator">|</span><span class="ruby-identifier">example</span><span class="ruby-operator">|</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">parse_example</span>(<span class="ruby-identifier">example</span>)}
+
+          <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">rspec_on</span>(<span class="ruby-identifier">:specification</span>) {<span class="ruby-operator">|</span><span class="ruby-identifier">example</span><span class="ruby-operator">|</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">parse_example</span>(<span class="ruby-identifier">example</span>)}
+
+          <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">rspec_on</span>(<span class="ruby-identifier">:line</span>) {<span class="ruby-operator">|</span><span class="ruby-identifier">line_number</span><span class="ruby-operator">|</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">line_number</span> = <span class="ruby-identifier">line_number</span>.<span class="ruby-identifier">to_i</span>}
+
+          <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">rspec_on</span>(<span class="ruby-identifier">:format</span>) {<span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">parse_format</span>(<span class="ruby-identifier">format</span>)}
+
+          <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">rspec_on</span>(<span class="ruby-identifier">:require</span>) {<span class="ruby-operator">|</span><span class="ruby-identifier">req</span><span class="ruby-operator">|</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">parse_require</span>(<span class="ruby-identifier">req</span>)}
+
+          <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">rspec_on</span>(<span class="ruby-identifier">:backtrace</span>) {<span class="ruby-identifier">options</span>.<span class="ruby-identifier">backtrace_tweaker</span> = <span class="ruby-constant">NoisyBacktraceTweaker</span>.<span class="ruby-identifier">new</span>}
+
+          <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">rspec_on</span>(<span class="ruby-identifier">:loadby</span>) {<span class="ruby-operator">|</span><span class="ruby-identifier">loadby</span><span class="ruby-operator">|</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">loadby</span> = <span class="ruby-identifier">loadby</span>}
+
+          <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">rspec_on</span>(<span class="ruby-identifier">:reverse</span>) {<span class="ruby-identifier">options</span>.<span class="ruby-identifier">reverse</span> = <span class="ruby-keyword kw">true</span>}
+
+          <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">rspec_on</span>(<span class="ruby-identifier">:timeout</span>) {<span class="ruby-operator">|</span><span class="ruby-identifier">timeout</span><span class="ruby-operator">|</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">timeout</span> = <span class="ruby-identifier">timeout</span>.<span class="ruby-identifier">to_f</span>}
+
+          <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">rspec_on</span>(<span class="ruby-identifier">:heckle</span>) {<span class="ruby-operator">|</span><span class="ruby-identifier">heckle</span><span class="ruby-operator">|</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">parse_heckle</span>(<span class="ruby-identifier">heckle</span>)}
+          
+          <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">rspec_on</span>(<span class="ruby-identifier">:dry_run</span>) {<span class="ruby-identifier">options</span>.<span class="ruby-identifier">dry_run</span> = <span class="ruby-keyword kw">true</span>}
+
+          <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">rspec_on</span>(<span class="ruby-identifier">:options_file</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">options_file</span><span class="ruby-operator">|</span>
+            <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">parse_options_file</span>(<span class="ruby-identifier">options_file</span>, <span class="ruby-identifier">out</span>, <span class="ruby-identifier">err</span>, <span class="ruby-identifier">args_copy</span>, <span class="ruby-identifier">warn_if_no_files</span>)
+          <span class="ruby-keyword kw">end</span>
+
+          <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">rspec_on</span>(<span class="ruby-identifier">:generate_options</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">options_file</span><span class="ruby-operator">|</span>
+            <span class="ruby-identifier">options</span>.<span class="ruby-identifier">parse_generate_options</span>(<span class="ruby-identifier">options_file</span>, <span class="ruby-identifier">args_copy</span>, <span class="ruby-identifier">out</span>)
+          <span class="ruby-keyword kw">end</span>
+
+          <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">rspec_on</span>(<span class="ruby-identifier">:runner</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">runner</span><span class="ruby-operator">|</span>
+            <span class="ruby-identifier">options</span>.<span class="ruby-identifier">runner_arg</span> = <span class="ruby-identifier">runner</span>
+          <span class="ruby-keyword kw">end</span>
+
+          <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">rspec_on</span>(<span class="ruby-identifier">:drb</span>) <span class="ruby-keyword kw">do</span>
+            <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">parse_drb</span>(<span class="ruby-identifier">args_copy</span>, <span class="ruby-identifier">out</span>, <span class="ruby-identifier">err</span>, <span class="ruby-identifier">warn_if_no_files</span>)
+          <span class="ruby-keyword kw">end</span>
+
+          <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">rspec_on</span>(<span class="ruby-identifier">:version</span>) {<span class="ruby-identifier">parse_version</span>(<span class="ruby-identifier">out</span>)}
+
+          <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">on_tail</span>(<span class="ruby-operator">*</span><span class="ruby-constant">COMMAND_LINE</span>[<span class="ruby-identifier">:help</span>]) {<span class="ruby-identifier">parse_help</span>(<span class="ruby-identifier">opts</span>, <span class="ruby-identifier">out</span>)}
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">parse!</span>(<span class="ruby-identifier">args</span>)
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">warn_if_no_files</span>
+          <span class="ruby-identifier">err</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;No files specified.&quot;</span>
+          <span class="ruby-identifier">err</span>.<span class="ruby-identifier">puts</span> <span class="ruby-identifier">opts</span>
+          <span class="ruby-identifier">exit</span>(<span class="ruby-value">6</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">err</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">$stderr</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">line_number</span>
+          <span class="ruby-identifier">set_spec_from_line_number</span>(<span class="ruby-identifier">options</span>, <span class="ruby-identifier">args</span>, <span class="ruby-identifier">err</span>)
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">formatters</span>.<span class="ruby-identifier">empty?</span>
+          <span class="ruby-identifier">options</span>.<span class="ruby-identifier">formatters</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Formatter</span><span class="ruby-operator">::</span><span class="ruby-constant">ProgressBarFormatter</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">out</span>)
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">options</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

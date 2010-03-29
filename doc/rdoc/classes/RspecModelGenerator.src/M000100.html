@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>manifest (RspecModelGenerator)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/plugins/rspec_on_rails/generators/rspec_model/rspec_model_generator.rb, line 5</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">manifest</span>
+
+    <span class="ruby-identifier">record</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span>
+      <span class="ruby-comment cmt"># Check for class naming collisions.</span>
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">class_collisions</span> <span class="ruby-identifier">class_path</span>, <span class="ruby-identifier">class_name</span>
+
+      <span class="ruby-comment cmt"># Model, spec, and fixture directories.</span>
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">directory</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'app/models'</span>, <span class="ruby-identifier">class_path</span>)
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">directory</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'spec/models'</span>, <span class="ruby-identifier">class_path</span>)
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">directory</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'spec/fixtures'</span>, <span class="ruby-identifier">class_path</span>)
+
+      <span class="ruby-comment cmt"># Model class, spec and fixtures.</span>
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">template</span> <span class="ruby-value str">'model:model.rb'</span>,      <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'app/models'</span>, <span class="ruby-identifier">class_path</span>, <span class="ruby-node">&quot;#{file_name}.rb&quot;</span>)
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">template</span> <span class="ruby-value str">'model:fixtures.yml'</span>,  <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'spec/fixtures'</span>, <span class="ruby-identifier">class_path</span>, <span class="ruby-node">&quot;#{table_name}.yml&quot;</span>)
+      <span class="ruby-identifier">m</span>.<span class="ruby-identifier">template</span> <span class="ruby-value str">'model_spec.rb'</span>,       <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'spec/models'</span>, <span class="ruby-identifier">class_path</span>, <span class="ruby-node">&quot;#{file_name}_spec.rb&quot;</span>)
+
+      <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:skip_migration</span>]
+        <span class="ruby-identifier">m</span>.<span class="ruby-identifier">migration_template</span> <span class="ruby-value str">'model:migration.rb'</span>, <span class="ruby-value str">'db/migrate'</span>, <span class="ruby-identifier">:assigns</span> =<span class="ruby-operator">&gt;</span> {
+          <span class="ruby-identifier">:migration_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;Create#{class_name.pluralize.gsub(/::/, '')}&quot;</span>
+        }, <span class="ruby-identifier">:migration_file_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;create_#{file_path.gsub(/\//, '_').pluralize}&quot;</span>
+      <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

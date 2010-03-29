@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Spec::DSL::Configuration</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Spec::DSL::Configuration</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/vendor/plugins/rspec/lib/spec/dsl/configuration_rb.html">
+                vendor/plugins/rspec/lib/spec/dsl/configuration.rb
+                </a>
+        <br />
+                <a href="../../../files/vendor/plugins/rspec_on_rails/lib/spec/dsl/configuration_rb.html">
+                vendor/plugins/rspec_on_rails/lib/spec/dsl/configuration.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M001130">after</a>&nbsp;&nbsp;
+      <a href="#M001131">append_after</a>&nbsp;&nbsp;
+      <a href="#M001127">append_before</a>&nbsp;&nbsp;
+      <a href="#M001128">before</a>&nbsp;&nbsp;
+      <a href="#M001134">fixture_path</a>&nbsp;&nbsp;
+      <a href="#M001135">global_fixtures</a>&nbsp;&nbsp;
+      <a href="#M001124">include</a>&nbsp;&nbsp;
+      <a href="#M001123">mock_with</a>&nbsp;&nbsp;
+      <a href="#M001125">predicate_matchers</a>&nbsp;&nbsp;
+      <a href="#M001129">prepend_after</a>&nbsp;&nbsp;
+      <a href="#M001126">prepend_before</a>&nbsp;&nbsp;
+      <a href="#M001133">use_instantiated_fixtures</a>&nbsp;&nbsp;
+      <a href="#M001132">use_transactional_fixtures</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">fixture_path</td>
+          <td class="context-item-value">&nbsp;[W]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">global_fixtures</td>
+          <td class="context-item-value">&nbsp;[W]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">use_instantiated_fixtures</td>
+          <td class="context-item-value">&nbsp;[W]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">use_transactional_fixtures</td>
+          <td class="context-item-value">&nbsp;[W]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M001130" class="method-detail">
+        <a name="M001130"></a>
+
+        <div class="method-heading">
+          <span class="method-name">after</span><span class="method-args">(*args, &amp;proc)</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Configuration.html#M001129">prepend_after</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M001131" class="method-detail">
+        <a name="M001131"></a>
+
+        <div class="method-heading">
+          <a href="Configuration.src/M001131.html" target="Code" class="method-signature"
+            onclick="popupCode('Configuration.src/M001131.html');return false;">
+          <span class="method-name">append_after</span><span class="method-args">(*args, &amp;proc)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Appends a global <tt><a href="Configuration.html#M001130">after</a></tt>
+block to all behaviours. See <a
+href="Configuration.html#M001127">append_before</a> for filtering
+semantics.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M001127" class="method-detail">
+        <a name="M001127"></a>
+
+        <div class="method-heading">
+          <a href="Configuration.src/M001127.html" target="Code" class="method-signature"
+            onclick="popupCode('Configuration.src/M001127.html');return false;">
+          <span class="method-name">append_before</span><span class="method-args">(*args, &amp;proc)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Appends a global <tt><a href="Configuration.html#M001128">before</a></tt>
+block to all behaviours.
+</p>
+<p>
+If you want to restrict the block to a subset of all the behaviours then
+specify this in a Hash as the last argument:
+</p>
+<pre>
+  config.prepend_before(:all, :behaviour_type =&gt; :farm)
+</pre>
+<p>
+or
+</p>
+<pre>
+  config.prepend_before(:behaviour_type =&gt; :farm)
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M001128" class="method-detail">
+        <a name="M001128"></a>
+
+        <div class="method-heading">
+          <span class="method-name">before</span><span class="method-args">(*args, &amp;proc)</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Configuration.html#M001127">append_before</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M001134" class="method-detail">
+        <a name="M001134"></a>
+
+        <div class="method-heading">
+          <a href="Configuration.src/M001134.html" target="Code" class="method-signature"
+            onclick="popupCode('Configuration.src/M001134.html');return false;">
+          <span class="method-name">fixture_path</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M001135" class="method-detail">
+        <a name="M001135"></a>
+
+        <div class="method-heading">
+          <a href="Configuration.src/M001135.html" target="Code" class="method-signature"
+            onclick="popupCode('Configuration.src/M001135.html');return false;">
+          <span class="method-name">global_fixtures</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M001124" class="method-detail">
+        <a name="M001124"></a>
+
+        <div class="method-heading">
+          <a href="Configuration.src/M001124.html" target="Code" class="method-signature"
+            onclick="popupCode('Configuration.src/M001124.html');return false;">
+          <span class="method-name">include</span><span class="method-args">(*args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Declares modules to be included in all behaviours (<tt>describe</tt>
+blocks).
+</p>
+<pre>
+  config.include(My::Bottle, My::Cup)
+</pre>
+<p>
+If you want to restrict the inclusion to a subset of all the behaviours
+then specify this in a Hash as the last argument:
+</p>
+<pre>
+  config.include(My::Pony, My::Horse, :behaviour_type =&gt; :farm)
+</pre>
+<p>
+Only behaviours that have that type will get the modules included:
+</p>
+<pre>
+  describe &quot;Downtown&quot;, :behaviour_type =&gt; :city do
+    # Will *not* get My::Pony and My::Horse included
+  end
+
+  describe &quot;Old Mac Donald&quot;, :behaviour_type =&gt; :farm do
+    # *Will* get My::Pony and My::Horse included
+  end
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M001123" class="method-detail">
+        <a name="M001123"></a>
+
+        <div class="method-heading">
+          <a href="Configuration.src/M001123.html" target="Code" class="method-signature"
+            onclick="popupCode('Configuration.src/M001123.html');return false;">
+          <span class="method-name">mock_with</span><span class="method-args">(mock_framework)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Chooses what mock framework to use. <a href="Example.html">Example</a>:
+</p>
+<pre>
+  Spec::Runner.configure do |config|
+    config.mock_with :rspec, :mocha, :flexmock, or :rr
+  end
+</pre>
+<p>
+To use any other mock framework, you&#8216;ll have to provide your own
+adapter. This is simply a module that responds to setup_mocks_for_rspec,
+verify_mocks_for_rspec and teardown_mocks_for_rspec. These are your hooks
+into the lifecycle of a given example. RSpec will call
+setup_mocks_for_rspec <a href="Configuration.html#M001128">before</a>
+running anything else in each <a href="Example.html">Example</a>. After
+executing the <a href="Configuration.html#M001130">after</a> methods, RSpec
+will then call verify_mocks_for_rspec and teardown_mocks_for_rspec (this is
+guaranteed to run even if there are failures in verify_mocks_for_rspec).
+</p>
+<p>
+Once you&#8216;ve defined this module, you can pass that to <a
+href="Configuration.html#M001123">mock_with</a>:
+</p>
+<pre>
+  Spec::Runner.configure do |config|
+    config.mock_with MyMockFrameworkAdapter
+  end
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M001125" class="method-detail">
+        <a name="M001125"></a>
+
+        <div class="method-heading">
+          <a href="Configuration.src/M001125.html" target="Code" class="method-signature"
+            onclick="popupCode('Configuration.src/M001125.html');return false;">
+          <span class="method-name">predicate_matchers</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Defines global predicate matchers. <a href="Example.html">Example</a>:
+</p>
+<pre>
+  config.predicate_matchers[:swim] = :can_swim?
+</pre>
+<p>
+This makes it possible to say:
+</p>
+<pre>
+  person.should swim # passes if person.should_swim? returns true
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M001129" class="method-detail">
+        <a name="M001129"></a>
+
+        <div class="method-heading">
+          <a href="Configuration.src/M001129.html" target="Code" class="method-signature"
+            onclick="popupCode('Configuration.src/M001129.html');return false;">
+          <span class="method-name">prepend_after</span><span class="method-args">(*args, &amp;proc)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Prepends a global <tt><a href="Configuration.html#M001130">after</a></tt>
+block to all behaviours. See <a
+href="Configuration.html#M001127">append_before</a> for filtering
+semantics.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M001126" class="method-detail">
+        <a name="M001126"></a>
+
+        <div class="method-heading">
+          <a href="Configuration.src/M001126.html" target="Code" class="method-signature"
+            onclick="popupCode('Configuration.src/M001126.html');return false;">
+          <span class="method-name">prepend_before</span><span class="method-args">(*args, &amp;proc)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Prepends a global <tt><a href="Configuration.html#M001128">before</a></tt>
+block to all behaviours. See <a
+href="Configuration.html#M001127">append_before</a> for filtering
+semantics.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M001133" class="method-detail">
+        <a name="M001133"></a>
+
+        <div class="method-heading">
+          <a href="Configuration.src/M001133.html" target="Code" class="method-signature"
+            onclick="popupCode('Configuration.src/M001133.html');return false;">
+          <span class="method-name">use_instantiated_fixtures</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M001132" class="method-detail">
+        <a name="M001132"></a>
+
+        <div class="method-heading">
+          <a href="Configuration.src/M001132.html" target="Code" class="method-signature"
+            onclick="popupCode('Configuration.src/M001132.html');return false;">
+          <span class="method-name">use_transactional_fixtures</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

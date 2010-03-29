@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>find_customer (NewController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File app/controllers/new_controller.rb, line 6</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_customer</span>
+    <span class="ruby-identifier">clear_new_ticket_session!</span>
+    <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>].<span class="ruby-identifier">nil?</span>
+      <span class="ruby-identifier">session</span>[<span class="ruby-identifier">:customer</span>] = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>].<span class="ruby-identifier">to_i</span>
+      <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>] = <span class="ruby-keyword kw">nil</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:find_unit</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span>
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">request</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">request</span>.<span class="ruby-identifier">html</span> { <span class="ruby-ivar">@customer</span> = <span class="ruby-constant">Customer</span>.<span class="ruby-identifier">new</span> }
+        <span class="ruby-identifier">request</span>.<span class="ruby-identifier">js</span> <span class="ruby-keyword kw">do</span>
+          <span class="ruby-ivar">@first_name</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:customer</span>][<span class="ruby-identifier">:first_name</span>].<span class="ruby-identifier">strip</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;%&quot;</span>
+          <span class="ruby-ivar">@last_name</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:customer</span>][<span class="ruby-identifier">:last_name</span>].<span class="ruby-identifier">strip</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;%&quot;</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@first_name</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span> <span class="ruby-keyword kw">and</span> <span class="ruby-ivar">@last_name</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+            <span class="ruby-identifier">render_text</span> <span class="ruby-value str">&quot;Need a name&quot;</span>
+            <span class="ruby-keyword kw">return</span>
+          <span class="ruby-keyword kw">end</span> <span class="ruby-comment cmt"># first name and last name blank?</span>
+          <span class="ruby-ivar">@customers</span> = <span class="ruby-constant">Customer</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> 
+                                           [ <span class="ruby-value str">&quot;first_name LIKE ? AND last_name LIKE ?&quot;</span>, 
+                                             <span class="ruby-ivar">@first_name</span>, <span class="ruby-ivar">@last_name</span>], <span class="ruby-identifier">:limit</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">10</span>)
+          <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@customers</span>.<span class="ruby-identifier">empty?</span>
+            <span class="ruby-identifier">render_text</span> <span class="ruby-value str">&quot;No customer found&quot;</span>
+            <span class="ruby-keyword kw">return</span>
+          <span class="ruby-keyword kw">end</span> <span class="ruby-comment cmt"># customers.empty?</span>
+          <span class="ruby-identifier">render</span> <span class="ruby-identifier">:partial</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;customer&quot;</span>, <span class="ruby-identifier">:collection</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@customers</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span>
+        <span class="ruby-keyword kw">end</span> <span class="ruby-comment cmt"># request.js</span>
+      <span class="ruby-keyword kw">end</span> <span class="ruby-comment cmt"># respond_to</span>
+    <span class="ruby-keyword kw">end</span> <span class="ruby-comment cmt"># if params[:id]</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

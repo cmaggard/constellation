@@ -1,0 +1,12 @@
+<%= error_messages_for 'technician' %>
+
+<!--[form:technician]-->
+<p><label for="technician_initials">Initials</label><br/>
+<%= text_field 'technician', 'initials'  %></p>
+
+<p><label for="technician_name">Name</label><br/>
+<%= text_field 'technician', 'name'  %></p>
+
+<p><label for="technician_username">Username (defaults to [first initial][last name] in lowercase)</label><br/>
+<%= text_field 'technician', 'username'  %></p>
+<!--[eoform:technician]-->

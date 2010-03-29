@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>login (LoginController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File app/controllers/login_controller.rb, line 10</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">login</span>
+    <span class="ruby-ivar">@username</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:username</span>]
+    <span class="ruby-identifier">password</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:password</span>]
+    
+    <span class="ruby-comment cmt"># Go ahead and grab the only tech with that username.</span>
+    <span class="ruby-comment cmt"># Will return nil if none found</span>
+    <span class="ruby-identifier">tech</span> = <span class="ruby-constant">Technician</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value str">&quot;username = ?&quot;</span>, <span class="ruby-ivar">@username</span>])
+    
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">tech</span>.<span class="ruby-identifier">nil?</span>
+      <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-identifier">$MESSAGES</span>[<span class="ruby-value str">'invalid_login'</span>]
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:index</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span>
+    <span class="ruby-keyword kw">end</span>
+    
+    <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">tech</span>.<span class="ruby-identifier">enabled</span>
+      <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-identifier">$MESSAGES</span>[<span class="ruby-value str">'acct_disabled'</span>] 
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:index</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span>
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-keyword kw">if</span> ( <span class="ruby-identifier">tech</span>.<span class="ruby-identifier">hashed_password</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">tech</span>.<span class="ruby-identifier">hashed_password</span>.<span class="ruby-identifier">empty?</span> )
+      <span class="ruby-identifier">session</span>[<span class="ruby-identifier">:technician</span>] = <span class="ruby-identifier">tech</span>.<span class="ruby-identifier">id</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:set_pass</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span>
+    <span class="ruby-keyword kw">end</span>
+  
+    <span class="ruby-identifier">process_login</span>(<span class="ruby-identifier">tech</span>, <span class="ruby-identifier">password</span>)
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">session</span>[<span class="ruby-identifier">:technician</span>]
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;/&quot;</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span>
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:index</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

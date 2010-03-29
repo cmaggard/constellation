@@ -1,0 +1,4 @@
+<%= "Discs " if ticket.discs? -%>
+<%= "Power " if  ticket.power_cord? -%>
+<%= "Bag " if ticket.bag? -%>
+<%=h ticket.misc_accessories unless ticket.misc_accessories.empty? -%>

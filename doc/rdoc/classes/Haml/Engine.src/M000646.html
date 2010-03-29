@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>new (Haml::Engine)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/gems/haml-1.7.1/lib/haml/engine.rb, line 122</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">template</span>, <span class="ruby-identifier">l_options</span> = {})
+      <span class="ruby-ivar">@options</span> = {
+        <span class="ruby-identifier">:suppress_eval</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>,
+        <span class="ruby-identifier">:attr_wrapper</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;'&quot;</span>,
+        <span class="ruby-identifier">:locals</span> =<span class="ruby-operator">&gt;</span> {},
+        <span class="ruby-identifier">:autoclose</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value str">'meta'</span>, <span class="ruby-value str">'img'</span>, <span class="ruby-value str">'link'</span>, <span class="ruby-value str">'br'</span>, <span class="ruby-value str">'hr'</span>],
+        <span class="ruby-identifier">:filters</span> =<span class="ruby-operator">&gt;</span> {
+          <span class="ruby-value str">'sass'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Engine</span>,
+          <span class="ruby-value str">'plain'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Haml</span><span class="ruby-operator">::</span><span class="ruby-constant">Filters</span><span class="ruby-operator">::</span><span class="ruby-constant">Plain</span>,
+          <span class="ruby-value str">'preserve'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Haml</span><span class="ruby-operator">::</span><span class="ruby-constant">Filters</span><span class="ruby-operator">::</span><span class="ruby-constant">Preserve</span> }
+      }
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-constant">NOT_LOADED</span>.<span class="ruby-identifier">include?</span> <span class="ruby-value str">'redcloth'</span>
+        <span class="ruby-ivar">@options</span>[<span class="ruby-identifier">:filters</span>].<span class="ruby-identifier">merge!</span>({
+          <span class="ruby-value str">'redcloth'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">RedCloth</span>,
+          <span class="ruby-value str">'textile'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Haml</span><span class="ruby-operator">::</span><span class="ruby-constant">Filters</span><span class="ruby-operator">::</span><span class="ruby-constant">Textile</span>,
+          <span class="ruby-value str">'markdown'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Haml</span><span class="ruby-operator">::</span><span class="ruby-constant">Filters</span><span class="ruby-operator">::</span><span class="ruby-constant">Markdown</span>
+        })
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-constant">NOT_LOADED</span>.<span class="ruby-identifier">include?</span> <span class="ruby-value str">'bluecloth'</span>
+        <span class="ruby-ivar">@options</span>[<span class="ruby-identifier">:filters</span>][<span class="ruby-value str">'markdown'</span>] = <span class="ruby-constant">Haml</span><span class="ruby-operator">::</span><span class="ruby-constant">Filters</span><span class="ruby-operator">::</span><span class="ruby-constant">Markdown</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-ivar">@options</span>.<span class="ruby-identifier">rec_merge!</span> <span class="ruby-identifier">l_options</span>
+
+      <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@options</span>[<span class="ruby-identifier">:suppress_eval</span>]
+        <span class="ruby-ivar">@options</span>[<span class="ruby-identifier">:filters</span>].<span class="ruby-identifier">merge!</span>({
+          <span class="ruby-value str">'erb'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">ERB</span>,
+          <span class="ruby-value str">'ruby'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Haml</span><span class="ruby-operator">::</span><span class="ruby-constant">Filters</span><span class="ruby-operator">::</span><span class="ruby-constant">Ruby</span>
+        })
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-ivar">@options</span>[<span class="ruby-identifier">:filters</span>].<span class="ruby-identifier">rec_merge!</span> <span class="ruby-identifier">l_options</span>[<span class="ruby-identifier">:filters</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">l_options</span>[<span class="ruby-identifier">:filters</span>]
+
+      <span class="ruby-ivar">@template</span> = <span class="ruby-identifier">template</span>.<span class="ruby-identifier">strip</span> <span class="ruby-comment cmt">#String</span>
+      <span class="ruby-ivar">@to_close_stack</span> = []
+      <span class="ruby-ivar">@output_tabs</span> = <span class="ruby-value">0</span>
+      <span class="ruby-ivar">@template_tabs</span> = <span class="ruby-value">0</span>
+      <span class="ruby-ivar">@index</span> = <span class="ruby-value">0</span>
+
+      <span class="ruby-comment cmt"># This is the base tabulation of the currently active</span>
+      <span class="ruby-comment cmt"># flattened block. -1 signifies that there is no such block.</span>
+      <span class="ruby-ivar">@flat_spaces</span> = <span class="ruby-value">-1</span>
+
+      <span class="ruby-keyword kw">begin</span>
+        <span class="ruby-comment cmt"># Only do the first round of pre-compiling if we really need to.</span>
+        <span class="ruby-comment cmt"># They might be passing in the precompiled string.</span>
+        <span class="ruby-identifier">requires_precompile</span> = <span class="ruby-keyword kw">true</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@@method_names</span>[<span class="ruby-ivar">@template</span>]
+          <span class="ruby-comment cmt"># Check that the compiled method supports a superset of the local assigns we want to do</span>
+          <span class="ruby-identifier">supported_assigns</span> = <span class="ruby-ivar">@@supported_local_assigns</span>[<span class="ruby-ivar">@template</span>]
+          <span class="ruby-identifier">requires_precompile</span> = <span class="ruby-operator">!</span><span class="ruby-ivar">@options</span>[<span class="ruby-identifier">:locals</span>].<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">all?</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">var</span><span class="ruby-operator">|</span> <span class="ruby-identifier">supported_assigns</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">var</span>}
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-identifier">do_precompile</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">requires_precompile</span>
+      <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Haml</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+        <span class="ruby-identifier">e</span>.<span class="ruby-identifier">add_backtrace_entry</span>(<span class="ruby-ivar">@index</span>, <span class="ruby-ivar">@options</span>[<span class="ruby-identifier">:filename</span>])
+        <span class="ruby-identifier">raise</span> <span class="ruby-identifier">e</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

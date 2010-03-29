@@ -1,0 +1,7 @@
+<tr bgcolor="<%= color %>" onclick="window.location.href='<%= url_for :controller => 'view', :id => queue.id %>'">
+  <td class="id"><%=h queue.id %></td>
+  <td class="name"><%=h queue.customer.last_first_name %></td>
+  <td class="comp"><%=h queue.unit.manufacturer_type %></td>
+  <td class="date"><%=h queue.created_at.to_date.to_s(:long) %></td>
+  <td class="claim"><%=h queue.claimed_by.initials unless queue.claimed_by.nil? %></td>
+</tr>

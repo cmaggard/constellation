@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>new (RspecScaffoldGenerator)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File vendor/plugins/rspec_on_rails/generators/rspec_scaffold/rspec_scaffold_generator.rb, line 17</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">runtime_args</span>, <span class="ruby-identifier">runtime_options</span> = {})
+    <span class="ruby-keyword kw">super</span>
+
+    <span class="ruby-ivar">@controller_name</span> = <span class="ruby-ivar">@name</span>.<span class="ruby-identifier">pluralize</span>
+
+    <span class="ruby-identifier">base_name</span>, <span class="ruby-ivar">@controller_class_path</span>, <span class="ruby-ivar">@controller_file_path</span>, <span class="ruby-ivar">@controller_class_nesting</span>, <span class="ruby-ivar">@controller_class_nesting_depth</span> = <span class="ruby-identifier">extract_modules</span>(<span class="ruby-ivar">@controller_name</span>)
+    <span class="ruby-ivar">@controller_class_name_without_nesting</span>, <span class="ruby-ivar">@controller_singular_name</span>, <span class="ruby-ivar">@controller_plural_name</span> = <span class="ruby-identifier">inflect_names</span>(<span class="ruby-identifier">base_name</span>)
+
+    <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@controller_class_nesting</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-ivar">@controller_class_name</span> = <span class="ruby-ivar">@controller_class_name_without_nesting</span>
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-ivar">@controller_class_name</span> = <span class="ruby-node">&quot;#{@controller_class_nesting}::#{@controller_class_name_without_nesting}&quot;</span>
+    <span class="ruby-keyword kw">end</span>
+    
+    <span class="ruby-keyword kw">if</span> <span class="ruby-constant">ActionView</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">const_defined?</span>(<span class="ruby-value str">'DEFAULT_TEMPLATE_HANDLER_PREFERENCE'</span>) <span class="ruby-operator">&amp;&amp;</span>
+       <span class="ruby-constant">ActionView</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span><span class="ruby-operator">::</span><span class="ruby-constant">DEFAULT_TEMPLATE_HANDLER_PREFERENCE</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">:erb</span>) <span class="ruby-keyword kw">then</span>
+      <span class="ruby-ivar">@resource_generator</span> = <span class="ruby-value str">&quot;scaffold&quot;</span>
+      <span class="ruby-ivar">@default_file_extension</span> = <span class="ruby-value str">&quot;html.erb&quot;</span>
+      <span class="ruby-ivar">@resource_edit_path</span> = <span class="ruby-value str">&quot;/edit&quot;</span>
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-ivar">@resource_generator</span> = <span class="ruby-value str">&quot;scaffold_resource&quot;</span>
+      <span class="ruby-ivar">@default_file_extension</span> = <span class="ruby-value str">&quot;rhtml&quot;</span>
+      <span class="ruby-ivar">@resource_edit_path</span> = <span class="ruby-value str">&quot;;edit&quot;</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

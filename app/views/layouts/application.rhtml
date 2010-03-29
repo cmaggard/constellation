@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-AU">
+  <head>
+    <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
+    <meta name="author" content="haran" />
+    <meta name="generator" content="author" />
+
+    <%= stylesheet_link_tag "sinorca-screen", "style", "scaffold" %>
+    <%= stylesheet_link_tag "sinorca-print", :media => "print" %>
+    <%= javascript_include_tag :defaults %>
+
+    <title>High Tech Service</title>
+  </head>
+
+  <body>
+    <!-- For non-visual user agents: -->
+      <div id="top"><a href="#main-copy" class="doNotDisplay doNotPrint">Skip to main content.</a></div>
+
+    <!-- ##### Header ##### -->
+
+    <div id="header">
+      <div class="superHeader">
+        <div class="left">
+          <span class="doNotDisplay">Related sites:</span>
+<% Link.find(:all).each do |l| %>
+           <a href="<%= l.link %>"><%= l.title %></a>  &nbsp;&nbsp;
+<% end %>
+        </div>
+        <div class="right">
+          <span class="doNotDisplay">More related sites:</span>
+          <%= "Logged in as #{Technician.find(session[:technician]).name} | " %>
+          <%= num_unread_messages %> | 
+          <%= link_to "Logout", :controller => "/login", :action => "logout" %>
+<!--          <a href="./index.html">Link 4</a> |
+          <a href="./index.html">Link 5</a> |
+          <a href="./index.html">Link 6</a> |
+          <a href="./index.html">Link 7</a> -->
+        </div>
+      </div>
+
+      <div class="midHeader">
+        <h1 class="headerTitle">
+          <span class="doNotPrint" style="float:right; font-family:arial; font-size:16px; padding-top: 10px; padding-right: 10px">
+              <%= random_subtitle %>
+          </span>
+          High Tech Service
+          <span class="printonly"> - 806.742.2565</span>
+        </h1>
+        <div class="doNotPrint" style="float:right">
+          <%= render :partial => "/search/searchform" %>
+        </div>  
+      </div>
+
+      <div class="subHeader">
+        <span class="doNotDisplay">Navigation:</span>
+        <%= link_to "Pickup Queue", :controller => "/queue", :action => "pickup"%> | 
+        <%= link_to "New Ticket", :controller => "/new" %> |
+        <%= link_to "Counter Work", :controller => "/counter" %>
+      </div>
+    </div>
+
+    <!-- ##### Side Bar ##### -->
+
+    <div id="side-bar">
+      <div>
+        <p class="sideBarTitle">Queues</p>
+        <ul>
+          <li><%= link_to "Work Queue", :controller => "/queue", :action => "index" %></li>
+          <li><%= link_to "My Queue", :controller => "/queue", :action => "personal" %></li>
+          <li><%= link_to "PC Queue", :controller => "/queue", :action => "pc" %></li>
+          <li><%= link_to "Apple Queue", :controller => "/queue", :action => "apple" %></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ##### Main Copy ##### -->
+
+    <div id="main-copy">
+      <% if flash[:notice] -%>
+      <h1 class="doNotPrint">Notice!</h1>
+      <div id="notice" class="doNotPrint"><%= flash[:notice] %></div>
+      <% end -%>
+
+      <%= yield -%>
+    </div>
+    
+    <!-- ##### Footer ##### -->
+
+    <div id="footer" class="doNotPrint">
+      <div class="left">
+        E-mail:&nbsp;<a href="mailto:cody.maggard+constellation@gmail.com" title="Email developer">cody.maggard@gmail.com</a>
+      </div>
+
+      <br class="doNotDisplay doNotPrint" />
+
+      <div class="right">
+        Powered by Constellation (c)<br />
+        <%= admin_links %>
+      </div>
+    </div>
+  </body>
+</html>

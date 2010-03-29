@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>note (UpdateController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File app/controllers/update_controller.rb, line 71</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">note</span>
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">get?</span>
+      <span class="ruby-ivar">@notes</span> = <span class="ruby-constant">Ticket</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>]).<span class="ruby-identifier">notes</span>
+    <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">post?</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:note</span>]
+        <span class="ruby-ivar">@note</span> = <span class="ruby-constant">Note</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:note</span>])
+        <span class="ruby-ivar">@ticket</span> = <span class="ruby-constant">Ticket</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>])
+        <span class="ruby-ivar">@note</span>.<span class="ruby-identifier">save</span>
+        <span class="ruby-ivar">@ticket</span>.<span class="ruby-identifier">notes</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@note</span>
+        <span class="ruby-keyword kw">if</span> (<span class="ruby-operator">!</span><span class="ruby-ivar">@ticket</span>.<span class="ruby-identifier">claimed_by</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@note</span>.<span class="ruby-identifier">technician</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@ticket</span>.<span class="ruby-identifier">claimed_by</span>)
+          <span class="ruby-constant">Message</span>.<span class="ruby-identifier">send_new</span>(<span class="ruby-ivar">@note</span>.<span class="ruby-identifier">technician</span>.<span class="ruby-identifier">id</span>, <span class="ruby-ivar">@ticket</span>.<span class="ruby-identifier">claimed_by</span>.<span class="ruby-identifier">id</span>, 
+                           <span class="ruby-node">&quot;Ticket ##{@ticket.id}: #{@note.note}&quot;</span>)
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-identifier">render</span> <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;new_note.rjs&quot;</span>, <span class="ruby-identifier">:local</span> =<span class="ruby-operator">&gt;</span> { <span class="ruby-identifier">:note</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@note</span> }
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-ivar">@notes</span> = <span class="ruby-constant">Ticket</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>]).<span class="ruby-identifier">notes</span>
+        <span class="ruby-identifier">render</span> <span class="ruby-identifier">:partial</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'notes'</span>
+      <span class="ruby-keyword kw">end</span> <span class="ruby-comment cmt"># params[:note]</span>
+    <span class="ruby-keyword kw">end</span> <span class="ruby-comment cmt"># request</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>
